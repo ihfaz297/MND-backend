@@ -1,0 +1,714 @@
+[
+    {
+        "from": "TILAGOR",
+        "to": "SHIBGONJ",
+        "mode": "bus",
+        "route_ids": [
+            "bus1",
+            "bus2"
+        ],
+        "time_min": 6,
+        "distance_meters": 2046,
+        "cost": 0,
+        "one_way": false,
+        "source": "distance_matrix"
+    },
+    {
+        "from": "SHIBGONJ",
+        "to": "NAIORPUL",
+        "mode": "bus",
+        "route_ids": [
+            "bus1",
+            "bus2"
+        ],
+        "time_min": 9,
+        "distance_meters": 2457,
+        "cost": 0,
+        "one_way": false,
+        "source": "distance_matrix"
+    },
+    {
+        "from": "NAIORPUL",
+        "to": "KUMARPARA",
+        "mode": "bus",
+        "route_ids": [
+            "bus1",
+            "bus2"
+        ],
+        "time_min": 4,
+        "distance_meters": 1074,
+        "cost": 0,
+        "one_way": false,
+        "source": "distance_matrix"
+    },
+    {
+        "from": "KUMARPARA",
+        "to": "SHAHI_EIDGAH",
+        "mode": "bus",
+        "route_ids": [
+            "bus1",
+            "bus2"
+        ],
+        "time_min": 4,
+        "distance_meters": 1271,
+        "cost": 0,
+        "one_way": false,
+        "source": "distance_matrix"
+    },
+    {
+        "from": "SHAHI_EIDGAH",
+        "to": "AMBARKHANA",
+        "mode": "bus",
+        "route_ids": [
+            "bus1",
+            "bus2",
+            "bus6",
+            "bus7"
+        ],
+        "time_min": 5,
+        "distance_meters": 1446,
+        "cost": 0,
+        "one_way": false,
+        "source": "distance_matrix"
+    },
+    {
+        "from": "AMBARKHANA",
+        "to": "SUBIDBAZAR",
+        "mode": "bus",
+        "route_ids": [
+            "bus1",
+            "bus2",
+            "bus3",
+            "bus4",
+            "bus5",
+            "bus6",
+            "bus7"
+        ],
+        "time_min": 9,
+        "distance_meters": 2087,
+        "cost": 0,
+        "one_way": false,
+        "source": "distance_matrix"
+    },
+    {
+        "from": "SUBIDBAZAR",
+        "to": "PATHANTULA",
+        "mode": "bus",
+        "route_ids": [
+            "bus1",
+            "bus2",
+            "bus3",
+            "bus4",
+            "bus5",
+            "bus6",
+            "bus7"
+        ],
+        "time_min": 8,
+        "distance_meters": 2265,
+        "cost": 0,
+        "one_way": false,
+        "source": "distance_matrix"
+    },
+    {
+        "from": "PATHANTULA",
+        "to": "MODINA_MARKET",
+        "mode": "bus",
+        "route_ids": [
+            "bus1",
+            "bus2",
+            "bus3",
+            "bus4",
+            "bus5",
+            "bus6",
+            "bus7"
+        ],
+        "time_min": 5,
+        "distance_meters": 1139,
+        "cost": 0,
+        "one_way": false,
+        "source": "distance_matrix"
+    },
+    {
+        "from": "MODINA_MARKET",
+        "to": "CAMPUS",
+        "mode": "bus",
+        "route_ids": [
+            "bus1",
+            "bus2",
+            "bus3",
+            "bus4",
+            "bus5",
+            "bus6",
+            "bus7"
+        ],
+        "time_min": 13,
+        "distance_meters": 3598,
+        "cost": 0,
+        "one_way": false,
+        "source": "distance_matrix"
+    },
+    {
+        "from": "KUMARPARA",
+        "to": "CHOWHATTA",
+        "mode": "bus",
+        "route_ids": [
+            "bus1",
+            "bus2"
+        ],
+        "time_min": 5,
+        "distance_meters": 1311,
+        "cost": 0,
+        "one_way": false,
+        "source": "distance_matrix"
+    },
+    {
+        "from": "CHOWHATTA",
+        "to": "AMBARKHANA",
+        "mode": "bus",
+        "route_ids": [
+            "bus1",
+            "bus2",
+            "bus3",
+            "bus4"
+        ],
+        "time_min": 6,
+        "distance_meters": 1137,
+        "cost": 0,
+        "one_way": false,
+        "source": "distance_matrix"
+    },
+    {
+        "from": "CAMPUS",
+        "to": "SUBIDBAZAR",
+        "mode": "bus",
+        "route_ids": [
+            "bus1",
+            "bus6",
+            "bus7"
+        ],
+        "time_min": 18,
+        "distance_meters": 5222,
+        "cost": 0,
+        "one_way": false,
+        "source": "distance_matrix"
+    },
+    {
+        "from": "SUBIDBAZAR",
+        "to": "AMBARKHANA",
+        "mode": "bus",
+        "route_ids": [
+            "bus1",
+            "bus6",
+            "bus7"
+        ],
+        "time_min": 9,
+        "distance_meters": 2091,
+        "cost": 0,
+        "one_way": false,
+        "source": "distance_matrix"
+    },
+    {
+        "from": "AMBARKHANA",
+        "to": "SHAHI_EIDGAH",
+        "mode": "bus",
+        "route_ids": [
+            "bus1",
+            "bus2"
+        ],
+        "time_min": 5,
+        "distance_meters": 1446,
+        "cost": 0,
+        "one_way": false,
+        "source": "distance_matrix"
+    },
+    {
+        "from": "SHAHI_EIDGAH",
+        "to": "KUMARPARA",
+        "mode": "bus",
+        "route_ids": [
+            "bus1",
+            "bus2"
+        ],
+        "time_min": 4,
+        "distance_meters": 1229,
+        "cost": 0,
+        "one_way": false,
+        "source": "distance_matrix"
+    },
+    {
+        "from": "KUMARPARA",
+        "to": "NAIORPUL",
+        "mode": "bus",
+        "route_ids": [
+            "bus1",
+            "bus2",
+            "bus3",
+            "bus4"
+        ],
+        "time_min": 4,
+        "distance_meters": 1074,
+        "cost": 0,
+        "one_way": false,
+        "source": "distance_matrix"
+    },
+    {
+        "from": "NAIORPUL",
+        "to": "SHIBGONJ",
+        "mode": "bus",
+        "route_ids": [
+            "bus1",
+            "bus2"
+        ],
+        "time_min": 9,
+        "distance_meters": 2307,
+        "cost": 0,
+        "one_way": false,
+        "source": "distance_matrix"
+    },
+    {
+        "from": "SHIBGONJ",
+        "to": "TILAGOR",
+        "mode": "bus",
+        "route_ids": [
+            "bus1",
+            "bus2"
+        ],
+        "time_min": 6,
+        "distance_meters": 2046,
+        "cost": 0,
+        "one_way": false,
+        "source": "distance_matrix"
+    },
+    {
+        "from": "TILAGOR",
+        "to": "SHAHI_EIDGAH",
+        "mode": "bus",
+        "route_ids": [
+            "bus1",
+            "bus2"
+        ],
+        "time_min": 9,
+        "distance_meters": 2818,
+        "cost": 0,
+        "one_way": false,
+        "source": "distance_matrix"
+    },
+    {
+        "from": "CAMPUS",
+        "to": "AMBARKHANA",
+        "mode": "bus",
+        "route_ids": [
+            "bus2",
+            "bus5",
+            "bus6",
+            "bus7"
+        ],
+        "time_min": 21,
+        "distance_meters": 5643,
+        "cost": 0,
+        "one_way": false,
+        "source": "distance_matrix"
+    },
+    {
+        "from": "NAIORPUL",
+        "to": "JAIL_RD",
+        "mode": "bus",
+        "route_ids": [
+            "bus3",
+            "bus4",
+            "bus6"
+        ],
+        "time_min": 4,
+        "distance_meters": 975,
+        "cost": 0,
+        "one_way": false,
+        "source": "distance_matrix"
+    },
+    {
+        "from": "JAIL_RD",
+        "to": "NAYASARAK",
+        "mode": "bus",
+        "route_ids": [
+            "bus3",
+            "bus4",
+            "bus6"
+        ],
+        "time_min": 2,
+        "distance_meters": 485,
+        "cost": 0,
+        "one_way": false,
+        "source": "distance_matrix"
+    },
+    {
+        "from": "NAYASARAK",
+        "to": "CHOWHATTA",
+        "mode": "bus",
+        "route_ids": [
+            "bus3",
+            "bus4",
+            "bus6"
+        ],
+        "time_min": 4,
+        "distance_meters": 902,
+        "cost": 0,
+        "one_way": false,
+        "source": "distance_matrix"
+    },
+    {
+        "from": "CHOWHATTA",
+        "to": "RIKABI_BAZAR",
+        "mode": "bus",
+        "route_ids": [
+            "bus3",
+            "bus4",
+            "bus6",
+            "bus7"
+        ],
+        "time_min": 4,
+        "distance_meters": 933,
+        "cost": 0,
+        "one_way": false,
+        "source": "distance_matrix"
+    },
+    {
+        "from": "RIKABI_BAZAR",
+        "to": "SUBIDBAZAR",
+        "mode": "bus",
+        "route_ids": [
+            "bus3",
+            "bus4",
+            "bus6",
+            "bus7"
+        ],
+        "time_min": 6,
+        "distance_meters": 1499,
+        "cost": 0,
+        "one_way": false,
+        "source": "distance_matrix"
+    },
+    {
+        "from": "CAMPUS",
+        "to": "MODINA_MARKET",
+        "mode": "bus",
+        "route_ids": [
+            "bus3",
+            "bus4"
+        ],
+        "time_min": 15,
+        "distance_meters": 3058,
+        "cost": 0,
+        "one_way": false,
+        "source": "distance_matrix"
+    },
+    {
+        "from": "MODINA_MARKET",
+        "to": "PATHANTULA",
+        "mode": "bus",
+        "route_ids": [
+            "bus3",
+            "bus4"
+        ],
+        "time_min": 6,
+        "distance_meters": 1136,
+        "cost": 0,
+        "one_way": false,
+        "source": "distance_matrix"
+    },
+    {
+        "from": "PATHANTULA",
+        "to": "SUBIDBAZAR",
+        "mode": "bus",
+        "route_ids": [
+            "bus3",
+            "bus4"
+        ],
+        "time_min": 9,
+        "distance_meters": 2315,
+        "cost": 0,
+        "one_way": false,
+        "source": "distance_matrix"
+    },
+    {
+        "from": "SUBIDBAZAR",
+        "to": "RIKABI_BAZAR",
+        "mode": "bus",
+        "route_ids": [
+            "bus3",
+            "bus4"
+        ],
+        "time_min": 5,
+        "distance_meters": 1471,
+        "cost": 0,
+        "one_way": false,
+        "source": "distance_matrix"
+    },
+    {
+        "from": "RIKABI_BAZAR",
+        "to": "CHOWHATTA",
+        "mode": "bus",
+        "route_ids": [
+            "bus3",
+            "bus4"
+        ],
+        "time_min": 4,
+        "distance_meters": 1005,
+        "cost": 0,
+        "one_way": false,
+        "source": "distance_matrix"
+    },
+    {
+        "from": "CHOWHATTA",
+        "to": "KUMARPARA",
+        "mode": "bus",
+        "route_ids": [
+            "bus3",
+            "bus4"
+        ],
+        "time_min": 5,
+        "distance_meters": 1311,
+        "cost": 0,
+        "one_way": false,
+        "source": "distance_matrix"
+    },
+    {
+        "from": "JAIL_RD",
+        "to": "CHOWHATTA",
+        "mode": "bus",
+        "route_ids": [
+            "bus3",
+            "bus4"
+        ],
+        "time_min": 5,
+        "distance_meters": 1237,
+        "cost": 0,
+        "one_way": false,
+        "source": "distance_matrix"
+    },
+    {
+        "from": "LAKKATURA",
+        "to": "AMBARKHANA",
+        "mode": "bus",
+        "route_ids": [
+            "bus5"
+        ],
+        "time_min": 9,
+        "distance_meters": 2520,
+        "cost": 0,
+        "one_way": false,
+        "source": "distance_matrix"
+    },
+    {
+        "from": "AMBARKHANA",
+        "to": "LAKKATURA",
+        "mode": "bus",
+        "route_ids": [
+            "bus5"
+        ],
+        "time_min": 8,
+        "distance_meters": 2520,
+        "cost": 0,
+        "one_way": false,
+        "source": "distance_matrix"
+    },
+    {
+        "from": "AMBARKHANA",
+        "to": "CHOWHATTA",
+        "mode": "bus",
+        "route_ids": [
+            "bus6",
+            "bus7"
+        ],
+        "time_min": 5,
+        "distance_meters": 1094,
+        "cost": 0,
+        "one_way": false,
+        "source": "distance_matrix"
+    },
+    {
+        "from": "RIKABI_BAZAR",
+        "to": "MODINA_MARKET",
+        "mode": "bus",
+        "route_ids": [
+            "bus6",
+            "bus7"
+        ],
+        "time_min": 13,
+        "distance_meters": 3359,
+        "cost": 0,
+        "one_way": false,
+        "source": "distance_matrix"
+    },
+    {
+        "from": "SHEIKHGHAT",
+        "to": "RIKABI_BAZAR",
+        "mode": "bus",
+        "route_ids": [
+            "bus7"
+        ],
+        "time_min": 6,
+        "distance_meters": 1530,
+        "cost": 0,
+        "one_way": false,
+        "source": "distance_matrix"
+    },
+    {
+        "from": "SHAHI_EIDGAH",
+        "to": "SUBIDBAZAR",
+        "mode": "local",
+        "time_min": 8,
+        "distance_meters": 2000,
+        "cost": 30,
+        "one_way": false,
+        "source": "estimated"
+    },
+    {
+        "from": "AMBARKHANA",
+        "to": "CHOWHATTA",
+        "mode": "local",
+        "time_min": 6,
+        "distance_meters": 1500,
+        "cost": 25,
+        "one_way": false,
+        "source": "estimated"
+    },
+    {
+        "from": "SUBIDBAZAR",
+        "to": "RIKABI_BAZAR",
+        "mode": "local",
+        "time_min": 5,
+        "distance_meters": 1200,
+        "cost": 20,
+        "one_way": false,
+        "source": "estimated"
+    },
+    {
+        "from": "NAIORPUL",
+        "to": "SHAHI_EIDGAH",
+        "mode": "local",
+        "time_min": 10,
+        "distance_meters": 2500,
+        "cost": 40,
+        "one_way": false,
+        "source": "estimated"
+    },
+    {
+        "from": "KUMARPARA",
+        "to": "AMBARKHANA",
+        "mode": "local",
+        "time_min": 8,
+        "distance_meters": 1800,
+        "cost": 35,
+        "one_way": false,
+        "source": "estimated"
+    },
+    {
+        "from": "TILAGOR",
+        "to": "NAIORPUL",
+        "mode": "local",
+        "time_min": 15,
+        "distance_meters": 3500,
+        "cost": 50,
+        "one_way": false,
+        "source": "estimated"
+    },
+    {
+        "from": "CAMPUS",
+        "to": "MODINA_MARKET",
+        "mode": "walk",
+        "time_min": 5,
+        "distance_meters": 400,
+        "cost": 0,
+        "one_way": false,
+        "source": "estimated"
+    },
+    {
+        "from": "MODINA_MARKET",
+        "to": "PATHANTULA",
+        "mode": "walk",
+        "time_min": 4,
+        "distance_meters": 300,
+        "cost": 0,
+        "one_way": false,
+        "source": "estimated"
+    },
+    {
+        "from": "PATHANTULA",
+        "to": "SUBIDBAZAR",
+        "mode": "walk",
+        "time_min": 6,
+        "distance_meters": 500,
+        "cost": 0,
+        "one_way": false,
+        "source": "estimated"
+    },
+    {
+        "from": "SUBIDBAZAR",
+        "to": "AMBARKHANA",
+        "mode": "walk",
+        "time_min": 8,
+        "distance_meters": 650,
+        "cost": 0,
+        "one_way": false,
+        "source": "estimated"
+    },
+    {
+        "from": "AMBARKHANA",
+        "to": "SHAHI_EIDGAH",
+        "mode": "walk",
+        "time_min": 7,
+        "distance_meters": 550,
+        "cost": 0,
+        "one_way": false,
+        "source": "estimated"
+    },
+    {
+        "from": "CHOWHATTA",
+        "to": "RIKABI_BAZAR",
+        "mode": "walk",
+        "time_min": 6,
+        "distance_meters": 450,
+        "cost": 0,
+        "one_way": false,
+        "source": "estimated"
+    },
+    {
+        "from": "RIKABI_BAZAR",
+        "to": "SUBIDBAZAR",
+        "mode": "walk",
+        "time_min": 7,
+        "distance_meters": 600,
+        "cost": 0,
+        "one_way": false,
+        "source": "estimated"
+    },
+    {
+        "from": "TILAGOR",
+        "to": "AMBARKHANA",
+        "mode": "local",
+        "time_min": 20,
+        "distance_meters": 5000,
+        "cost": 70,
+        "one_way": false,
+        "source": "estimated"
+    },
+    {
+        "from": "SHIBGONJ",
+        "to": "AMBARKHANA",
+        "mode": "local",
+        "time_min": 18,
+        "distance_meters": 4500,
+        "cost": 60,
+        "one_way": false,
+        "source": "estimated"
+    },
+    {
+        "from": "KUMARPARA",
+        "to": "LAKKATURA",
+        "mode": "local",
+        "time_min": 15,
+        "distance_meters": 3800,
+        "cost": 55,
+        "one_way": false,
+        "source": "estimated"
+    }
+]

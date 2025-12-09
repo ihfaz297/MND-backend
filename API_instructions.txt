@@ -1,0 +1,180 @@
+DISTANCE_MATRIX_API=AIzaSyAyLZOSblVmOkTGj7G4X8B01PuN_Jd1e54
+
+
+Guidelines for using the Distance Matrix API in your app
+1. Role of Distance Matrix in your architecture
+
+The API is not your main routing brain. It should:
+
+✅ Only be used for local/dotted segments, like:
+
+from bus drop stop → exact destination
+
+or campus → destination when no bus is available (local-only fallback)
+
+✅ Never be called for every bus edge / stop-to-stop hop
+
+✅ Be treated as a fallback calculator, not as the core engine
+
+Your core logic is still:
+
+Graph of nodes.json + edges.json + routes.json
+
+Interconnecting buses (transfers)
+
+Options: fastest vs least local transport
+
+The API just refines “how long is this local part actually?”
+
+2. How to call the API (semantics)
+2.1. Use node → node, not arbitrary strings
+
+For each node in your graph, store at least one of:
+
+A canonical address string, e.g.:
+
+"Tilagor, Sylhet, Bangladesh"
+
+"AIUB Campus Gate, Sylhet, Bangladesh"
+
+Or lat/lng coordinates (better long term):
+
+{ lat: 24.8991, lng: 91.8700 }
+
+In nodes.json you might extend like:
+
+{
+  "id": "TILAGOR",
+  "name": "Tilagor",
+  "type": "stop",
+  "gmaps_address": "Tilagor, Sylhet, Bangladesh"
+}
+
+
+Then the Distance Matrix client should accept node IDs, look up their address/coords, and build requests from that — not raw arbitrary user strings.
+
+2.2. Use appropriate modes
+
+For “local transport” (CNG/rickshaw-ish): use mode=driving
+
+For pure walking final segments: mode=walking
+
+You can choose based on edge.mode or user preference.
+
+2.3. What to read from response
+
+From the first (and only) element:
+
+distance.value → integer meters
+
+duration.value → integer seconds
+
+Ignore text fields for backend logic; they’re UI-only
+
+Your client should standardize everything to:
+
+{
+  ok: boolean;
+  distanceMeters?: number;
+  durationSeconds?: number;
+  raw?: any; // keep original for debugging
+  errorMessage?: string;
+}
+
+3. Quotas, safety, and caching (VERY IMPORTANT)
+
+You said ~700 calls/month is your moral + practical limit. So:
+
+3.1. When to call
+
+Call Distance Matrix only if:
+
+You need a local / dotted segment, AND
+
+Your own local graph (A) or predefined edges*:
+
+has no path, or
+
+has a path with too rough / unknown cost, and you want refinement
+
+So the flow:
+
+Need local cost from node X to node Y:
+  -> Try localGraphShortestPath(X, Y)
+  -> If path exists with known cost: use it, NO API call
+  -> Else: call Distance Matrix for X->Y
+
+3.2. Caching strategy
+
+Implement a simple in-memory cache like:
+
+cacheKey = `${originId}|${destId}|${mode}`
+
+cache[cacheKey] = {
+  distanceMeters,
+  durationSeconds,
+  timestamp
+}
+
+
+Check cache before calling API
+
+Use a long TTL for demo (e.g. 7 days, or even “never expire” for this project)
+
+Pre-warm (optionally) common pairs: campus ↔ popular stops
+
+This means:
+
+First query: 1 API call
+
+Next 100 same queries: 0 API calls
+
+3.3. Usage tracking & hard limits
+
+Maintain a small in-memory counter:
+
+{
+  monthCount: number;
+  lastReset: "2025-12-01"
+}
+
+
+Behavior:
+
+On each successful Distance Matrix call: monthCount++
+
+If monthCount >= 700:
+
+Stop calling the API
+
+Use fallback heuristic instead (average speed × straight-line distance, or just your own local graph)
+
+Also consider a daily soft limit, e.g. maxDaily = 25:
+
+If daily usage exceeds that, treat it as “no more external calls today”
+
+4. Error handling & fallbacks
+
+Your agent must never let the whole route calculation fail just because Google said “no.”
+
+Cases to handle:
+
+Network error / timeout
+
+status !== "OK" on top-level
+
+rows[0].elements[0].status !== "OK"
+
+In all these, the Distance Matrix client should:
+
+Return ok: false
+
+Log a short, non-sensitive message
+
+Your planner should fall back to:
+
+local A* if available, or
+
+a simple heuristic (e.g. 4 km → 10–15 minutes)
+
+Goal: the user always gets some route, even if less accurate.

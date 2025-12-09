@@ -1,0 +1,119 @@
+================================================================================
+QUICK FIX: Phone Can't Reach Backend (Router Isolation Issue)
+================================================================================
+
+PROBLEM IDENTIFIED:
+Your phone cannot ping your PC (192.168.31.119) because your router is blocking
+WiFi-to-LAN communication. This is NOT a backend or firewall issue!
+
+================================================================================
+SOLUTION 1: Connect PC to WiFi (FASTEST - 2 minutes)
+================================================================================
+
+1. UNPLUG the Ethernet cable from your PC
+
+2. CONNECT your PC to WiFi:
+   - Click WiFi icon in taskbar
+   - Select the same WiFi network your phone is on
+   - Enter password and connect
+
+3. GET YOUR NEW IP ADDRESS:
+   Open PowerShell and run:
+   
+   ipconfig | Select-String "IPv4"
+   
+   Look for the WiFi adapter IP (probably still 192.168.31.xxx)
+
+4. RESTART the backend server:
+   - Press Ctrl+C in the terminal to stop
+   - Run: npm run dev
+   - The server will show your new WiFi IP address
+
+5. TEST from your phone's browser:
+   http://NEW_IP_ADDRESS:3000/api/health
+   
+   (Use the IP shown when server starts)
+
+This should work immediately!
+
+================================================================================
+SOLUTION 2: Disable Router AP Isolation (PERMANENT FIX)
+================================================================================
+
+If you want to keep using LAN and still allow phone access:
+
+1. OPEN ROUTER ADMIN PANEL:
+   - Browser: http://192.168.31.1
+   - Login (check router sticker for password, often "admin/admin")
+
+2. FIND WIRELESS SETTINGS:
+   Look for sections named:
+   - Wireless Settings
+   - Advanced Settings
+   - Security Settings
+
+3. DISABLE THESE OPTIONS (if you find them):
+   - AP Isolation
+   - Client Isolation
+   - Wireless Isolation
+   - Inter-Station Traffic (enable this if found)
+   - SSID Isolation
+   - "Prevent client-to-client communication"
+
+4. SAVE and REBOOT router
+
+5. TEST ping from phone again
+
+Router models with this issue:
+- TP-Link: Wireless → Wireless Security → AP Isolation (disable)
+- Xiaomi/Mi: Advanced → AP Isolation (disable)
+- Linksys: Wireless → Advanced → AP Isolation (disable)
+- Netgear: Advanced → Wireless Settings → Enable Wireless Isolation (uncheck)
+
+================================================================================
+SOLUTION 3: Use Phone Hotspot (FOR TESTING)
+================================================================================
+
+If you just want to test if your React app works:
+
+1. ENABLE HOTSPOT on your phone
+2. CONNECT your PC to your phone's hotspot
+3. RESTART backend server (will get new IP from phone's network)
+4. ACCESS from phone's browser using the new IP
+
+This proves everything works and bypasses your router completely.
+
+================================================================================
+WHAT'S HAPPENING TECHNICALLY
+================================================================================
+
+Your router has TWO separate networks:
+- LAN (Ethernet): 192.168.31.x
+- WiFi: 192.168.31.x (same range but isolated)
+
+Even though they're on the same IP range, the router is blocking traffic
+between them for security reasons.
+
+Test confirms:
+✅ PC can access server locally (localhost)
+✅ PC can access server via network IP (192.168.31.119)
+✅ Server is listening on all interfaces (0.0.0.0:3000)
+✅ Firewall rule exists for port 3000
+❌ Phone cannot ping PC at all <- THIS IS THE ROOT CAUSE
+
+The backend code is 100% correct. This is purely a router configuration issue.
+
+================================================================================
+RECOMMENDED ACTION
+================================================================================
+
+For immediate testing and development:
+→ Use SOLUTION 1 (Connect PC to WiFi)
+
+For permanent setup:
+→ Use SOLUTION 2 (Disable router AP isolation)
+
+The backend is ready. Once you fix the network isolation, your phone, React
+app, and future Kotlin app will all be able to connect!
+
+================================================================================

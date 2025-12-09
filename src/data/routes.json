@@ -1,0 +1,530 @@
+[
+    {
+        "route_id": "bus1",
+        "name": "Bus 1",
+        "trips": [
+            {
+                "trip_id": "bus1_0825",
+                "direction": "to_campus",
+                "stops": [
+                    "TILAGOR",
+                    "SHIBGONJ",
+                    "NAIORPUL",
+                    "KUMARPARA",
+                    "SHAHI_EIDGAH",
+                    "AMBARKHANA",
+                    "SUBIDBAZAR",
+                    "PATHANTULA",
+                    "MODINA_MARKET",
+                    "CAMPUS"
+                ],
+                "departure_time": "08:25"
+            },
+            {
+                "trip_id": "bus1_0930",
+                "direction": "to_campus",
+                "stops": [
+                    "TILAGOR",
+                    "SHIBGONJ",
+                    "NAIORPUL",
+                    "KUMARPARA",
+                    "CHOWHATTA",
+                    "AMBARKHANA",
+                    "SUBIDBAZAR",
+                    "PATHANTULA",
+                    "MODINA_MARKET",
+                    "CAMPUS"
+                ],
+                "departure_time": "09:30"
+            },
+            {
+                "trip_id": "bus1_1310",
+                "direction": "from_campus",
+                "stops": [
+                    "CAMPUS",
+                    "SUBIDBAZAR",
+                    "AMBARKHANA",
+                    "SHAHI_EIDGAH",
+                    "KUMARPARA",
+                    "NAIORPUL",
+                    "SHIBGONJ",
+                    "TILAGOR",
+                    "SHAHI_EIDGAH",
+                    "AMBARKHANA",
+                    "SUBIDBAZAR",
+                    "PATHANTULA",
+                    "MODINA_MARKET",
+                    "CAMPUS"
+                ],
+                "departure_time": "13:10"
+            },
+            {
+                "trip_id": "bus1_1710",
+                "direction": "from_campus",
+                "stops": [
+                    "CAMPUS",
+                    "SUBIDBAZAR",
+                    "AMBARKHANA",
+                    "SHAHI_EIDGAH",
+                    "KUMARPARA",
+                    "NAIORPUL",
+                    "SHIBGONJ",
+                    "TILAGOR",
+                    "SHAHI_EIDGAH",
+                    "AMBARKHANA",
+                    "SUBIDBAZAR",
+                    "PATHANTULA",
+                    "MODINA_MARKET",
+                    "CAMPUS"
+                ],
+                "departure_time": "17:10"
+            }
+        ]
+    },
+    {
+        "route_id": "bus2",
+        "name": "Bus 2",
+        "trips": [
+            {
+                "trip_id": "bus2_0830",
+                "direction": "to_campus",
+                "stops": [
+                    "TILAGOR",
+                    "SHIBGONJ",
+                    "NAIORPUL",
+                    "KUMARPARA",
+                    "SHAHI_EIDGAH",
+                    "AMBARKHANA",
+                    "SUBIDBAZAR",
+                    "PATHANTULA",
+                    "MODINA_MARKET",
+                    "CAMPUS"
+                ],
+                "departure_time": "08:30"
+            },
+            {
+                "trip_id": "bus2_0925",
+                "direction": "to_campus",
+                "stops": [
+                    "TILAGOR",
+                    "SHIBGONJ",
+                    "NAIORPUL",
+                    "KUMARPARA",
+                    "CHOWHATTA",
+                    "AMBARKHANA",
+                    "SUBIDBAZAR",
+                    "PATHANTULA",
+                    "MODINA_MARKET",
+                    "CAMPUS"
+                ],
+                "departure_time": "09:25"
+            },
+            {
+                "trip_id": "bus2_1310",
+                "direction": "from_campus",
+                "stops": [
+                    "CAMPUS",
+                    "AMBARKHANA",
+                    "SHAHI_EIDGAH",
+                    "KUMARPARA",
+                    "NAIORPUL",
+                    "SHIBGONJ",
+                    "TILAGOR",
+                    "SHAHI_EIDGAH",
+                    "AMBARKHANA",
+                    "SUBIDBAZAR",
+                    "PATHANTULA",
+                    "MODINA_MARKET",
+                    "CAMPUS"
+                ],
+                "departure_time": "13:10"
+            },
+            {
+                "trip_id": "bus2_1710",
+                "direction": "from_campus",
+                "stops": [
+                    "CAMPUS",
+                    "AMBARKHANA",
+                    "SHAHI_EIDGAH",
+                    "KUMARPARA",
+                    "NAIORPUL",
+                    "SHIBGONJ",
+                    "TILAGOR",
+                    "SHIBGONJ",
+                    "NAIORPUL",
+                    "KUMARPARA",
+                    "SHAHI_EIDGAH",
+                    "AMBARKHANA",
+                    "SUBIDBAZAR",
+                    "PATHANTULA",
+                    "MODINA_MARKET",
+                    "CAMPUS"
+                ],
+                "departure_time": "17:10"
+            }
+        ]
+    },
+    {
+        "route_id": "bus3",
+        "name": "Bus 3",
+        "trips": [
+            {
+                "trip_id": "bus3_0830",
+                "direction": "to_campus",
+                "stops": [
+                    "NAIORPUL",
+                    "JAIL_RD",
+                    "NAYASARAK",
+                    "CHOWHATTA",
+                    "RIKABI_BAZAR",
+                    "SUBIDBAZAR",
+                    "PATHANTULA",
+                    "MODINA_MARKET",
+                    "CAMPUS"
+                ],
+                "departure_time": "08:30"
+            },
+            {
+                "trip_id": "bus3_0925",
+                "direction": "to_campus",
+                "stops": [
+                    "NAIORPUL",
+                    "JAIL_RD",
+                    "NAYASARAK",
+                    "CHOWHATTA",
+                    "RIKABI_BAZAR",
+                    "SUBIDBAZAR",
+                    "PATHANTULA",
+                    "MODINA_MARKET",
+                    "CAMPUS"
+                ],
+                "departure_time": "09:25"
+            },
+            {
+                "trip_id": "bus3_1310",
+                "direction": "from_campus",
+                "stops": [
+                    "CAMPUS",
+                    "MODINA_MARKET",
+                    "PATHANTULA",
+                    "SUBIDBAZAR",
+                    "RIKABI_BAZAR",
+                    "CHOWHATTA",
+                    "KUMARPARA",
+                    "NAIORPUL",
+                    "JAIL_RD",
+                    "CHOWHATTA",
+                    "RIKABI_BAZAR",
+                    "SUBIDBAZAR",
+                    "PATHANTULA",
+                    "MODINA_MARKET",
+                    "CAMPUS"
+                ],
+                "departure_time": "13:10"
+            },
+            {
+                "trip_id": "bus3_1710",
+                "direction": "from_campus",
+                "stops": [
+                    "CAMPUS",
+                    "MODINA_MARKET",
+                    "PATHANTULA",
+                    "SUBIDBAZAR",
+                    "RIKABI_BAZAR",
+                    "CHOWHATTA",
+                    "KUMARPARA",
+                    "NAIORPUL"
+                ],
+                "departure_time": "17:10"
+            },
+            {
+                "trip_id": "bus3_1830",
+                "direction": "to_campus",
+                "stops": [
+                    "CHOWHATTA",
+                    "AMBARKHANA",
+                    "SUBIDBAZAR",
+                    "PATHANTULA",
+                    "MODINA_MARKET",
+                    "CAMPUS"
+                ],
+                "departure_time": "18:30"
+            }
+        ]
+    },
+    {
+        "route_id": "bus4",
+        "name": "Bus 4",
+        "trips": [
+            {
+                "trip_id": "bus4_0825",
+                "direction": "to_campus",
+                "stops": [
+                    "NAIORPUL",
+                    "JAIL_RD",
+                    "NAYASARAK",
+                    "CHOWHATTA",
+                    "RIKABI_BAZAR",
+                    "SUBIDBAZAR",
+                    "PATHANTULA",
+                    "MODINA_MARKET",
+                    "CAMPUS"
+                ],
+                "departure_time": "08:25"
+            },
+            {
+                "trip_id": "bus4_0930",
+                "direction": "to_campus",
+                "stops": [
+                    "NAIORPUL",
+                    "JAIL_RD",
+                    "NAYASARAK",
+                    "CHOWHATTA",
+                    "RIKABI_BAZAR",
+                    "SUBIDBAZAR",
+                    "PATHANTULA",
+                    "MODINA_MARKET",
+                    "CAMPUS"
+                ],
+                "departure_time": "09:30"
+            },
+            {
+                "trip_id": "bus4_1310",
+                "direction": "from_campus",
+                "stops": [
+                    "CAMPUS",
+                    "MODINA_MARKET",
+                    "PATHANTULA",
+                    "SUBIDBAZAR",
+                    "RIKABI_BAZAR",
+                    "CHOWHATTA",
+                    "KUMARPARA",
+                    "NAIORPUL",
+                    "JAIL_RD",
+                    "CHOWHATTA",
+                    "RIKABI_BAZAR",
+                    "SUBIDBAZAR",
+                    "PATHANTULA",
+                    "MODINA_MARKET",
+                    "CAMPUS"
+                ],
+                "departure_time": "13:10"
+            },
+            {
+                "trip_id": "bus4_1710",
+                "direction": "from_campus",
+                "stops": [
+                    "CAMPUS",
+                    "MODINA_MARKET",
+                    "PATHANTULA",
+                    "SUBIDBAZAR",
+                    "RIKABI_BAZAR",
+                    "CHOWHATTA",
+                    "KUMARPARA",
+                    "NAIORPUL"
+                ],
+                "departure_time": "17:10"
+            },
+            {
+                "trip_id": "bus4_1830",
+                "direction": "to_campus",
+                "stops": [
+                    "CHOWHATTA",
+                    "AMBARKHANA",
+                    "SUBIDBAZAR",
+                    "PATHANTULA",
+                    "MODINA_MARKET",
+                    "CAMPUS"
+                ],
+                "departure_time": "18:30"
+            }
+        ]
+    },
+    {
+        "route_id": "bus5",
+        "name": "Bus 5",
+        "trips": [
+            {
+                "trip_id": "bus5_0830",
+                "direction": "to_campus",
+                "stops": [
+                    "LAKKATURA",
+                    "AMBARKHANA",
+                    "SUBIDBAZAR",
+                    "PATHANTULA",
+                    "MODINA_MARKET",
+                    "CAMPUS"
+                ],
+                "departure_time": "08:30"
+            },
+            {
+                "trip_id": "bus5_0930",
+                "direction": "to_campus",
+                "stops": [
+                    "LAKKATURA",
+                    "AMBARKHANA",
+                    "SUBIDBAZAR",
+                    "PATHANTULA",
+                    "MODINA_MARKET",
+                    "CAMPUS"
+                ],
+                "departure_time": "09:30"
+            },
+            {
+                "trip_id": "bus5_1310",
+                "direction": "from_campus",
+                "stops": [
+                    "CAMPUS",
+                    "AMBARKHANA",
+                    "LAKKATURA",
+                    "AMBARKHANA",
+                    "SUBIDBAZAR",
+                    "PATHANTULA",
+                    "MODINA_MARKET",
+                    "CAMPUS"
+                ],
+                "departure_time": "13:10"
+            },
+            {
+                "trip_id": "bus5_1710",
+                "direction": "from_campus",
+                "stops": [
+                    "CAMPUS",
+                    "AMBARKHANA",
+                    "LAKKATURA",
+                    "AMBARKHANA",
+                    "SUBIDBAZAR",
+                    "PATHANTULA",
+                    "MODINA_MARKET",
+                    "CAMPUS"
+                ],
+                "departure_time": "17:10"
+            }
+        ]
+    },
+    {
+        "route_id": "bus6",
+        "name": "Bus 6",
+        "trips": [
+            {
+                "trip_id": "bus6_0730",
+                "direction": "to_campus",
+                "stops": [
+                    "NAIORPUL",
+                    "JAIL_RD",
+                    "NAYASARAK",
+                    "CHOWHATTA",
+                    "RIKABI_BAZAR",
+                    "SUBIDBAZAR",
+                    "PATHANTULA",
+                    "MODINA_MARKET",
+                    "CAMPUS"
+                ],
+                "departure_time": "07:30"
+            },
+            {
+                "trip_id": "bus6_0935",
+                "direction": "to_campus",
+                "stops": [
+                    "SHAHI_EIDGAH",
+                    "AMBARKHANA",
+                    "SUBIDBAZAR",
+                    "PATHANTULA",
+                    "MODINA_MARKET",
+                    "CAMPUS"
+                ],
+                "departure_time": "09:35"
+            },
+            {
+                "trip_id": "bus6_1610",
+                "direction": "from_campus",
+                "stops": [
+                    "CAMPUS",
+                    "AMBARKHANA",
+                    "CHOWHATTA",
+                    "RIKABI_BAZAR",
+                    "SUBIDBAZAR",
+                    "PATHANTULA",
+                    "MODINA_MARKET",
+                    "CAMPUS"
+                ],
+                "departure_time": "16:10"
+            },
+            {
+                "trip_id": "bus6_1710",
+                "direction": "from_campus",
+                "stops": [
+                    "CAMPUS",
+                    "SUBIDBAZAR",
+                    "AMBARKHANA",
+                    "CHOWHATTA",
+                    "RIKABI_BAZAR",
+                    "MODINA_MARKET",
+                    "CAMPUS"
+                ],
+                "departure_time": "17:10"
+            }
+        ]
+    },
+    {
+        "route_id": "bus7",
+        "name": "Bus 7",
+        "trips": [
+            {
+                "trip_id": "bus7_0835",
+                "direction": "to_campus",
+                "stops": [
+                    "SHEIKHGHAT",
+                    "RIKABI_BAZAR",
+                    "SUBIDBAZAR",
+                    "PATHANTULA",
+                    "MODINA_MARKET",
+                    "CAMPUS"
+                ],
+                "departure_time": "08:35"
+            },
+            {
+                "trip_id": "bus7_0935",
+                "direction": "to_campus",
+                "stops": [
+                    "SHAHI_EIDGAH",
+                    "AMBARKHANA",
+                    "SUBIDBAZAR",
+                    "PATHANTULA",
+                    "MODINA_MARKET",
+                    "CAMPUS"
+                ],
+                "departure_time": "09:35"
+            },
+            {
+                "trip_id": "bus7_1610",
+                "direction": "from_campus",
+                "stops": [
+                    "CAMPUS",
+                    "AMBARKHANA",
+                    "CHOWHATTA",
+                    "RIKABI_BAZAR",
+                    "SUBIDBAZAR",
+                    "PATHANTULA",
+                    "MODINA_MARKET",
+                    "CAMPUS"
+                ],
+                "departure_time": "16:10"
+            },
+            {
+                "trip_id": "bus7_1710",
+                "direction": "from_campus",
+                "stops": [
+                    "CAMPUS",
+                    "SUBIDBAZAR",
+                    "AMBARKHANA",
+                    "CHOWHATTA",
+                    "RIKABI_BAZAR",
+                    "MODINA_MARKET",
+                    "CAMPUS"
+                ],
+                "departure_time": "17:10"
+            }
+        ]
+    }
+]

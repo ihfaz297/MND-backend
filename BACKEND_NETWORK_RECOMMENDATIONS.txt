@@ -1,0 +1,442 @@
+================================================================================
+BACKEND NETWORK CONFIGURATION RECOMMENDATIONS
+University Bus Routing API - Cross-Device Access Guide
+================================================================================
+
+📋 OVERVIEW
+-----------
+To enable your backend to accept connections from other devices on the same
+WiFi network (smartphones, tablets, other laptops, and future Kotlin apps),
+you MUST configure the Express server to bind to ALL network interfaces
+instead of just localhost.
+
+Your current network configuration:
+- PC IPv4 Address: 192.168.31.119
+- Subnet Mask: 255.255.255.0
+- Network: 192.168.31.0/24
+
+================================================================================
+REQUIRED CHANGE: Update server.ts
+================================================================================
+
+CURRENT CODE (Line 72-76 in server.ts):
+----------------------------------------
+app.listen(PORT, () => {
+    console.log(`\n✓ Server running on http://localhost:${PORT}`);
+    console.log(`✓ Health check: http://localhost:${PORT}/api/health`);
+    console.log(`✓ Example: http://localhost:${PORT}/api/routes?from=TILAGOR&to=CAMPUS&time=08:30\n`);
+});
+
+
+RECOMMENDED CHANGE:
+-------------------
+Replace the app.listen() call with:
+
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`\n✓ Server running on http://localhost:${PORT}`);
+    console.log(`✓ Network: http://192.168.31.119:${PORT}`);
+    console.log(`\n📱 Access from other devices on WiFi:`);
+    console.log(`   http://192.168.31.119:${PORT}/api/health`);
+    console.log(`   http://192.168.31.119:${PORT}/api/routes?from=TILAGOR&to=CAMPUS&time=08:30\n`);
+});
+
+
+EXPLANATION:
+------------
+The second parameter '0.0.0.0' tells Express to bind to all available network
+interfaces, not just localhost (127.0.0.1). This allows:
+
+✅ Localhost access: http://localhost:3000 (same as before)
+✅ Network access: http://192.168.31.119:3000 (NEW - from other devices)
+
+Without this change:
+❌ Server only listens on 127.0.0.1 (localhost)
+❌ Other devices get "Connection refused" or timeout errors
+❌ Mobile apps cannot reach your backend
+
+================================================================================
+ENHANCED VERSION: Dynamic Network IP Detection
+================================================================================
+
+For a more robust solution that automatically detects your PC's network IP
+(useful if your IP changes), you can use this enhanced version:
+
+1. First, install 'os' module (built-in, no npm install needed)
+
+2. Add this helper function at the top of server.ts (after imports):
+
+import os from 'os';
+
+/**
+ * Get the primary network IP address (IPv4)
+ */
+function getNetworkIP(): string | null {
+    const interfaces = os.networkInterfaces();
+    
+    // Priority: Ethernet > WiFi > Others
+    const preferredNames = ['Ethernet', 'Wi-Fi', 'en0', 'eth0', 'wlan0'];
+    
+    for (const name of preferredNames) {
+        const iface = interfaces[name];
+        if (iface) {
+            for (const addr of iface) {
+                // Skip internal (loopback) and IPv6 addresses
+                if (addr.family === 'IPv4' && !addr.internal) {
+                    return addr.address;
+                }
+            }
+        }
+    }
+    
+    // Fallback: find any IPv4 address
+    for (const name of Object.keys(interfaces)) {
+        const iface = interfaces[name];
+        if (iface) {
+            for (const addr of iface) {
+                if (addr.family === 'IPv4' && !addr.internal) {
+                    return addr.address;
+                }
+            }
+        }
+    }
+    
+    return null;
+}
+
+3. Then update your app.listen() call:
+
+app.listen(PORT, '0.0.0.0', () => {
+    const networkIP = getNetworkIP();
+    
+    console.log(`\n🚌 University Bus Routing API\n`);
+    console.log(`✓ Server running on http://localhost:${PORT}`);
+    
+    if (networkIP) {
+        console.log(`✓ Network access: http://${networkIP}:${PORT}`);
+        console.log(`\n📱 Access from mobile/other devices (same WiFi):`);
+        console.log(`   Health: http://${networkIP}:${PORT}/api/health`);
+        console.log(`   Example: http://${networkIP}:${PORT}/api/routes?from=TILAGOR&to=CAMPUS&time=08:30`);
+    } else {
+        console.log(`⚠️  Could not detect network IP - check WiFi connection`);
+    }
+    
+    console.log(`\n💡 Tips:`);
+    console.log(`   - Disable Windows Firewall for testing`);
+    console.log(`   - Ensure devices are on the same WiFi network`);
+    console.log(`   - Your network IP may change if router reassigns it\n`);
+});
+
+
+BENEFITS OF DYNAMIC IP DETECTION:
+----------------------------------
+✅ Automatically shows current network IP in console
+✅ No hardcoded IP addresses
+✅ Easy to see if IP changes after router reboot
+✅ Helpful for other developers on the team
+
+================================================================================
+CORS CONFIGURATION (Already Correct)
+================================================================================
+
+Your current CORS configuration (line 16 in server.ts):
+  app.use(cors());
+
+This is CORRECT and already allows all origins. No changes needed here.
+
+However, if you encounter CORS issues in production, you can make it explicit:
+
+app.use(cors({
+    origin: '*', // Allow all origins (suitable for local network testing)
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
+}));
+
+For production (when deploying to a public server), restrict origins:
+
+app.use(cors({
+    origin: [
+        'http://192.168.31.119:5173',  // Vite dev server
+        'http://localhost:5173',        // Local testing
+        'https://yourdomain.com'        // Production domain
+    ],
+    credentials: true
+}));
+
+================================================================================
+FIREWALL CONFIGURATION (Windows)
+================================================================================
+
+After updating your code, you MUST configure Windows Firewall to allow
+incoming connections on port 3000.
+
+OPTION 1: Disable Firewall for Testing (Quick but less secure)
+---------------------------------------------------------------
+1. Open Windows Settings
+2. Go to: Update & Security → Windows Security → Firewall & network protection
+3. Click "Private network" (your WiFi network)
+4. Turn off "Windows Defender Firewall"
+5. Test connectivity
+6. Re-enable firewall after testing
+
+OPTION 2: Create Firewall Rule (Recommended for long-term use)
+---------------------------------------------------------------
+1. Open Windows Defender Firewall with Advanced Security:
+   - Press Win + R
+   - Type: wf.msc
+   - Press Enter
+
+2. Click "Inbound Rules" in left panel
+
+3. Click "New Rule..." in right panel
+
+4. Choose "Port" → Next
+
+5. Select "TCP" and enter port: 3000 → Next
+
+6. Select "Allow the connection" → Next
+
+7. Check all three profiles (Domain, Private, Public) → Next
+
+8. Name: "University Bus API (Node.js)"
+   Description: "Allow incoming connections to bus routing API on port 3000"
+
+9. Click Finish
+
+Now test: From your phone's browser, visit http://192.168.31.119:3000/api/health
+
+You should see JSON response with "status": "healthy"
+
+================================================================================
+ENVIRONMENT VARIABLE (Optional Enhancement)
+================================================================================
+
+To make the host configurable via environment variables:
+
+1. Update .env.example and .env:
+
+# Server Configuration
+PORT=3000
+HOST=0.0.0.0
+NODE_ENV=development
+
+2. Update server.ts:
+
+const PORT = process.env.PORT || 3000;
+const HOST = process.env.HOST || '0.0.0.0';
+
+app.listen(PORT, HOST, () => {
+    // ... your console.log statements
+});
+
+This allows easy switching:
+- Development: HOST=0.0.0.0 (accept from network)
+- Local only: HOST=127.0.0.1 (localhost only, more secure)
+
+================================================================================
+TESTING YOUR CHANGES
+================================================================================
+
+1. Make the changes to server.ts
+2. Restart your backend server:
+   - Press Ctrl+C to stop
+   - Run: npm run dev
+
+3. Verify console output shows network IP:
+   ✓ Server running on http://localhost:3000
+   ✓ Network access: http://192.168.31.119:3000
+
+4. Test from your PC browser:
+   http://localhost:3000/api/health  ← Should work
+   http://192.168.31.119:3000/api/health  ← Should also work
+
+5. Test from your phone browser (connected to same WiFi):
+   http://192.168.31.119:3000/api/health  ← Should work
+
+6. If step 5 fails:
+   - Check firewall settings
+   - Verify both devices on same WiFi network
+   - Run ipconfig to confirm your IP hasn't changed
+   - Check backend console for incoming request logs
+
+================================================================================
+KOTLIN APP CONSIDERATIONS (Future)
+================================================================================
+
+When you expand to Kotlin Android apps, the same changes apply. However,
+Android has additional considerations:
+
+1. INTERNET Permission (AndroidManifest.xml):
+   <uses-permission android:name="android.permission.INTERNET" />
+
+2. Cleartext Traffic (Android 9+):
+   By default, Android blocks HTTP (non-HTTPS) traffic. For local testing,
+   you need to allow cleartext traffic:
+
+   In AndroidManifest.xml:
+   <application
+       android:usesCleartextTraffic="true"
+       ...>
+   </application>
+
+   Or create res/xml/network_security_config.xml:
+   <?xml version="1.0" encoding="utf-8"?>
+   <network-security-config>
+       <domain-config cleartextTrafficPermitted="true">
+           <domain includeSubdomains="true">192.168.31.119</domain>
+       </domain-config>
+   </network-security-config>
+
+   And reference it in AndroidManifest.xml:
+   <application
+       android:networkSecurityConfig="@xml/network_security_config"
+       ...>
+   </application>
+
+3. Testing on Android Emulator:
+   - Physical device on WiFi: Use http://192.168.31.119:3000
+   - Android emulator: Use http://10.0.2.2:3000
+     (10.0.2.2 is the special IP that maps to host machine's localhost)
+
+4. Retrofit Configuration (recommended HTTP client for Kotlin):
+   
+   build.gradle.kts:
+   dependencies {
+       implementation("com.squareup.retrofit2:retrofit:2.9.0")
+       implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+   }
+
+   API Interface:
+   interface BusRoutingApi {
+       @GET("api/health")
+       suspend fun healthCheck(): HealthResponse
+       
+       @GET("api/nodes")
+       suspend fun getNodes(): NodesResponse
+       
+       @GET("api/routes")
+       suspend fun planRoute(
+           @Query("from") from: String,
+           @Query("to") to: String,
+           @Query("time") time: String,
+           @Query("currentRoute") currentRoute: String? = null
+       ): RouteResponse
+   }
+
+   Retrofit Instance:
+   object RetrofitClient {
+       private const val BASE_URL = "http://192.168.31.119:3000/"
+       
+       val api: BusRoutingApi by lazy {
+           Retrofit.Builder()
+               .baseUrl(BASE_URL)
+               .addConverterFactory(GsonConverterFactory.create())
+               .build()
+               .create(BusRoutingApi::class.java)
+       }
+   }
+
+5. No backend changes needed! The same endpoints work for:
+   - React web apps
+   - Kotlin Android apps  
+   - iOS apps (Swift)
+   - Any HTTP client
+
+================================================================================
+STATIC IP ASSIGNMENT (Optional but Recommended)
+================================================================================
+
+To prevent your IP from changing and breaking frontend configurations:
+
+OPTION 1: Router-level Static IP (Recommended)
+-----------------------------------------------
+1. Access your router admin panel (usually http://192.168.31.1)
+2. Log in (check router label for default credentials)
+3. Find "DHCP Reservation" or "Static IP Assignment"
+4. Find your PC by MAC address: f8-5c-84-b6-17-4a-9c-e7 (from ipconfig)
+5. Assign fixed IP: 192.168.31.119
+6. Save and reboot router
+
+OPTION 2: Windows Network Adapter Settings
+-------------------------------------------
+1. Open Network Connections (ncpa.cpl)
+2. Right-click your Ethernet adapter → Properties
+3. Select "Internet Protocol Version 4 (TCP/IPv4)" → Properties
+4. Choose "Use the following IP address":
+   - IP address: 192.168.31.119
+   - Subnet mask: 255.255.255.0
+   - Default gateway: 192.168.31.1
+   - Preferred DNS: 8.8.8.8
+   - Alternate DNS: 8.8.4.4
+5. Click OK
+
+OPTION 1 is preferred as it's easier to manage centrally.
+
+================================================================================
+PRODUCTION DEPLOYMENT NOTES (Future)
+================================================================================
+
+When deploying to a production server (AWS, DigitalOcean, Heroku, etc.):
+
+1. Use environment variables for host configuration
+2. Enable HTTPS (required for mobile apps in production)
+3. Restrict CORS to specific origins (your frontend domain)
+4. Use a reverse proxy (nginx, Apache) in front of Node.js
+5. Consider using a domain name instead of IP address
+6. Implement rate limiting to prevent abuse
+7. Add authentication/API keys if handling sensitive data
+
+For local network production (e.g., university campus server):
+- Keep the 0.0.0.0 binding
+- Use static IP or DNS name
+- Set up HTTPS with Let's Encrypt or self-signed cert
+- Configure firewall to only allow campus network IPs
+
+================================================================================
+SUMMARY - IMPLEMENTATION CHECKLIST
+================================================================================
+
+MINIMAL CHANGES (60 seconds):
+[ ] 1. Open src/server.ts
+[ ] 2. Find app.listen(PORT, () => { ... })
+[ ] 3. Change to: app.listen(PORT, '0.0.0.0', () => { ... })
+[ ] 4. Restart server: npm run dev
+[ ] 5. Disable Windows Firewall for testing
+[ ] 6. Test from phone: http://192.168.31.119:3000/api/health
+
+RECOMMENDED CHANGES (5 minutes):
+[ ] 1. Implement getNetworkIP() helper function
+[ ] 2. Update app.listen() with enhanced logging
+[ ] 3. Create Windows Firewall rule for port 3000
+[ ] 4. Test from multiple devices
+[ ] 5. Document network IP in README.md
+
+OPTIONAL ENHANCEMENTS:
+[ ] Set up static IP in router
+[ ] Add HOST environment variable
+[ ] Create network_security_config.xml for future Kotlin app
+[ ] Update CORS for production origins when deploying
+
+================================================================================
+NEED HELP?
+================================================================================
+
+If you encounter issues:
+
+1. Check backend console logs for incoming requests
+2. Verify both devices show same WiFi network name
+3. Run ipconfig to confirm IP address
+4. Test with curl from another PC on same network:
+   curl http://192.168.31.119:3000/api/health
+5. Check router admin panel for connected devices
+6. Try pinging: ping 192.168.31.119 (from mobile using network tools app)
+
+Common issues:
+- "Connection refused" → Firewall blocking or server not listening on 0.0.0.0  
+- "Network timeout" → Devices on different networks or WiFi AP isolation
+- "CORS error" → CORS config issue (already handled in your code)
+- IP changed → Router reassigned IP, need static IP assignment
+
+================================================================================
+END OF BACKEND NETWORK RECOMMENDATIONS
+================================================================================

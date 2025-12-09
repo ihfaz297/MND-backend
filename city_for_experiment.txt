@@ -1,0 +1,24 @@
+City = Sylhet, Bangladesh
+Places here are bus stops or landmarks. Additional info can be accessed from web.
+[
+  { "id": "A", "name": "Tilagor", "type": "stop" },
+  { "id": "B", "name": "Shibgonj", "type": "stop" },
+  { "id": "C", "name": "Naiorpul", "type": "stop" },
+  { "id": "D", "name": "Kumarpara", "type": "stop" },
+  { "id": "E", "name": "Shahi Eidgah", "type": "intersection" },
+  { "id": "F", "name": "Ambarkhana", "type": "intersection" },
+  { "id": "G", "name": "Subidbazar", "type": "intersection" },
+  { "id": "H", "name": "Pathantula", "type": "stop" },
+  { "id": "I", "name": "Modina Market", "type": "stop" },
+  { "id": "J", "name": "Campus", "type": "stop" },
+  { "id": "K", "name": "Chowhatta", "type": "stop" },
+  { "id": "L", "name": "Jail Rd", "type": "stop" },
+  { "id": "M", "name": "Nayasarak", "type": "stop" },
+  { "id": "N", "name": "Rikabi-Bazar Point", "type": "stop" },
+  { "id": "O", "name": "Lakkatura", "type": "stop" },
+  { "id": "P", "name": "Sheikhghat", "type": "stop" },
+  { "id": "Q", "name": "Lamabazar", "type": "stop" },
+  { "id": "R", "name": "Medical", "type": "destination" },
+  { "id": "S", "name": "Zindabazar", "type": "destination" }
+]
+Read @schedule.txt for bus schedules.

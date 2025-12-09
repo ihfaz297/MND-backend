@@ -1,0 +1,69 @@
+Bus Routing App - Project Analysis
+Overview
+The project is a Node.js-based transit routing engine designed to optimize bus travel while seamlessly integrating local transport (walking/rickshaw) for the "first mile" and "last mile". It uses a graph-based approach to calculate routes, similar to how flight planners or Google Maps handle multi-modal journeys.
+
+Technology Stack
+Language: JavaScript (Node.js)
+Framework: Express.js (for the API server)
+Data storage: JSON files (
+nodes.json
+, 
+edges.json
+, 
+trips.json
+) loaded into memory
+Core Libraries: Built-in fs, path
+Architecture
+The system consists of three main modules:
+
+server.js
+: A simple Express API that exposes a /api/plan endpoint. It accepts routeId, from, and dest as query parameters.
+graph.js
+: Handles data loading. It constructs an in-memory graph where:
+Nodes: Bus stops or landmarks.
+Edges: Connections between nodes with modes (
+bus
+, 
+local
+, walk), time costs, and monetary costs.
+Trips: Specific bus schedules with departure/arrival times.
+planner.js
+: The core routing engine containing the business logic.
+Key Features & Logic (
+planner.js
+)
+1. Hybrid Routing
+The engine doesn't just look for bus routes; it combines transport modes:
+
+Local-to-Bus: Finds nearby bus stops from the origin if the user isn't at a station (
+localToBusRoutes
+).
+Bus-to-Local: Handles cases where the bus doesn't reach the final destination, finding a drop-off point and a subsequent local/walk path (
+busToLocalRoute
+).
+2. Multi-Leg Journeys (Transfers)
+Transfer Detection: The 
+detectTransfers
+ method identifies points where switching to a different bus route would result in an earlier arrival.
+Multi-Leg Logic: 
+multiLegRoute
+ stitches together two bus legs (Bus A -> Transfer -> Bus B) to optimize travel time.
+3. Optimization Strategies
+The 
+compareRoutes
+ method aggregates results from different strategies and classifies them:
+
+Fastest: The route with the lowest total time (including walking/waiting).
+Cheapest/Alternative: Often a fallback or a route that minimizes local transport costs.
+4. Fallback Mechanism
+If no bus route is viable, 
+fallbackLocal
+ calculates a "Local/Walk Only" path using Dijkstra's algorithm on the non-bus edges of the graph. This ensures the user is never left without a route.
+Data Structure
+Nodes: Locations with IDs.
+Edges: Links between nodes. Important attributes: mode (bus/local), time_min, cost, route_id.
+Trips: Instances of a route with specific timestamps (departure_times).
+Conclusion
+The project implements a sophisticated "flight-planner-like" algorithm for ground transport. It successfully addresses complex real-world scenarios like missed buses (fallback), indirect routes (transfers), and imperfect coverage (hybrid local/bus paths). The code is modular and well-structured, making it easy to extend with real-time data or more complex heuristics in the future.
+
+Now dear agent, read @main_idea.txt

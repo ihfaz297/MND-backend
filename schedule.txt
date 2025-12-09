@@ -1,0 +1,58 @@
+Bus No., Campus Departure Times, Route and Arrival TIme(Estimated)
+
+bus1
+AM 8:25 Tilagor —> Shibgonj —> Naiorpul —> Kumarpara —> Shahi Eidgah —> Ambarkhana —> Subidbazar —> Pathantula —> Modina Market —> Campus
+AM 9:30 Tilagor —> Shibgonj —> Naiorpul —> Kumarpara —> Chowhatta —> Ambarkhana —> Subidbazar —> Pathantula —> Modina Market —> Campus
+PM 1:10 Campus —> Subidbazar —> Ambarkhana —> Shahi Eidgah —> Kumarpara —> Naiorpul —> Shibgonj —> Tilagor —> Shahi Eidgah —> Ambarkhana —> Subidbazar —> Pathantula —> Modina Market —> Campus
+PM 5:10 Campus —> Subidbazar —> Ambarkhana —> Shahi Eidgah —> Kumarpara —> Naiorpul —> Shibgonj —> Tilagor —> Shahi Eidgah —> Ambarkhana —> Subidbazar —> Pathantula —> Modina Market —> Campus
+
+
+bus2
+AM 8:30 Tilagor —> Shibgonj —> Naiorpul —> Kumarpara —> Shahi Eidgah —> Ambarkhana —> Subidbazar —> Pathantula —> Modina Market —> Campus
+AM 9:25 Tilagor —> Shibgonj —> Naiorpul —> Kumarpara —> Chowhatta —> Ambarkhana —> Subidbazar —> Pathantula —> Modina Market —> Campus
+PM 1:10 Campus —> Ambarkhana —> Shahi Eidgah —> Kumarpara —> Naiorpul —> Shibgonj —> Tilagor —> Shahi Eidgah —> Ambarkhana —> Subidbazar —> Pathantula —> Modina Market —> Campus
+PM 5:10 Campus —> Ambarkhana —> Shahi Eidgah —> Kumarpara —> Naiorpul —> Shibgonj —> Tilagor —> Shibgonj —> Naiorpul —> Kumarpara —> Shahi Eidgah —> Ambarkhana —> Subidbazar —> Pathantula —> Modina Market —> Campus
+
+
+bus3
+AM 8:30 Naiorpul —> Jail Rd —> Nayasarak —> Chowhatta —> Rikabi-Bazar Point —> Subidbazar —> Pathantula —> Modina Market —> Campus
+AM 9:25 Naiorpul —> Jail Rd —> Nayasarak —> Chowhatta —> Rikabi-Bazar Point —> Subidbazar —> Pathantula —> Modina Market —> Campus
+PM 1:10 Campus —> Modina Market —> Pathantula —> Subidbazar —> Rikabi-Bazar Point —> Chowhatta —> Kumarpara —> Naiorpul —> Jail Rd —> Chowhatta —> Rikabi-Bazar Point —> Subidbazar —> Pathantula —> Modina Market —> Campus
+PM 5:10 Campus —> Modina Market —> Pathantula —> Subidbazar —> Rikabi-Bazar Point —> Chowhatta —> Kumarpara —> Naiorpul
+PM 6:30 Chowhatta —> Ambarkhana —> Subidbazar —> Pathantula —> Modina Market —> Campus
+
+
+bus4
+AM 8:25 Naiorpul—> Jail Rd—> Nayasarak—> Chowhatta—> Rikabi-Bazar Point—> Subidbazar —> Pathantula —> Modina Market —> Campus
+AM 9:30 Naiorpul—> Jail Rd—> Nayasarak—> Chowhatta—> Rikabi-Bazar Point—> Subidbazar —> Pathantula —> Modina Market —> Campus
+PM 1:10 Campus —> Modina Market —> Pathantula —> Subidbazar —> Rikabi-Bazar Point —> Chowhatta —> Kumarpara —> Naiorpul —> Jail Rd —> Chowhatta —> Rikabi-Bazar Point—> Subidbazar —> Pathantula —> Modina Market —> Campus
+PM 5:10 Campus —> Modina Market —> Pathantula —> Subidbazar —> Rikabi-Bazar Point —> Chowhatta —> Kumarpara —> Naiorpul 
+PM 6:30 Chowhatta —> Ambarkhana —> Subidbazar —> Pathantula —> Modina Market —> Campus
+
+
+bus5
+AM 8:30 Lakkatura —> Ambarkhana —> Subidbazar —> Pathantula —> Modina Market —> Campus
+AM 9:30 Lakkatura —> Ambarkhana —> Subidbazar —> Pathantula —> Modina Market —> Campus
+PM 1:10 Campus—> Ambarkhana—> Lakkatura —> Ambarkhana —> Subidbazar —> Pathantula —> Modina Market —> Campus
+PM 5:10 Campus —> Ambarkhana —> Lakkatura —> Ambarkhana —> Subidbazar —> Pathantula —> Modina Market —> Campus
+
+
+bus6
+AM 7:30 Naiorpul—> Jail Rd —> Nayasarak —> Chowhatta —> Rikabi-Bazar Point —> Subidbazar —> Pathantula —> Modina Market —> Campus
+AM 9:35 Shahi Eidgah —> Ambarkhana —> Subidbazar —> Pathantula —> Modina Market —> Campus
+PM 4:10 Campus —> Ambarkhana —> Chowhatta —> Rikabi-Bazar Point —> Subidbazar —> Pathantula —> Modina Market —> Campus
+PM 5:10 Campus —> Subidbazar —> Ambarkhana —> Chowhatta —> Rikabi-Bazar Point—> Modina Market —> Campus
+
+
+bus7
+AM 8:35 Sheikhghat —> Rikabi-Bazar Point —> Subidbazar —> Pathantula —> Modina Market —> Campus
+AM 9:35 Shahi Eidgah —> Ambarkhana —> Subidbazar —> Pathantula —> Modina Market —> Campus
+PM 4:10 Campus —> Ambarkhana —> Chowhatta —> Rikabi-Bazar Point —> Subidbazar —> Pathantula —> Modina Market —> Campus
+PM 5:10 Campus —> Subidbazar —> Ambarkhana —> Chowhatta —> Rikabi-Bazar Point —> Modina Market —> Campus
+
+
+Every route finishes within approxiamtely 1-1.5 hour. Traffic delays may apply. 
+
+I'm sure Google Maps API can handle this. Usually taking driving route distance between nodes described in schedule.txt may be fetchable from API.
+
+(look it's absolutely ok if you think the bus routing is dogshit in its setup. In such a case, if you want, you can create a .js or .py file that can take the route as you expect route data to be fed to you. I'll just enter the nodes one after one and the starting time of departure lol. It's all easy. No pressure.)

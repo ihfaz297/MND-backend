@@ -1,0 +1,116 @@
+[
+    {
+        "id": "TILAGOR",
+        "name": "Tilagor",
+        "type": "stop",
+        "gmaps_address": "Tilagor, Sylhet, Bangladesh"
+    },
+    {
+        "id": "SHIBGONJ",
+        "name": "Shibgonj",
+        "type": "stop",
+        "gmaps_address": "Shibgonj, Sylhet, Bangladesh"
+    },
+    {
+        "id": "NAIORPUL",
+        "name": "Naiorpul",
+        "type": "stop",
+        "gmaps_address": "Naiorpul, Sylhet, Bangladesh"
+    },
+    {
+        "id": "KUMARPARA",
+        "name": "Kumarpara",
+        "type": "stop",
+        "gmaps_address": "Kumarpara, Sylhet, Bangladesh"
+    },
+    {
+        "id": "SHAHI_EIDGAH",
+        "name": "Shahi Eidgah",
+        "type": "intersection",
+        "gmaps_address": "Shahi Eidgah, Sylhet, Bangladesh"
+    },
+    {
+        "id": "AMBARKHANA",
+        "name": "Ambarkhana",
+        "type": "intersection",
+        "gmaps_address": "Ambarkhana, Sylhet, Bangladesh"
+    },
+    {
+        "id": "SUBIDBAZAR",
+        "name": "Subidbazar",
+        "type": "intersection",
+        "gmaps_address": "Subidbazar, Sylhet, Bangladesh"
+    },
+    {
+        "id": "PATHANTULA",
+        "name": "Pathantula",
+        "type": "stop",
+        "gmaps_address": "Pathantula, Sylhet, Bangladesh"
+    },
+    {
+        "id": "MODINA_MARKET",
+        "name": "Modina Market",
+        "type": "stop",
+        "gmaps_address": "Modina Market, Sylhet, Bangladesh"
+    },
+    {
+        "id": "CAMPUS",
+        "name": "Campus",
+        "type": "stop",
+        "gmaps_address": "Shahjalal University of Science and Technology, Sylhet, Bangladesh"
+    },
+    {
+        "id": "CHOWHATTA",
+        "name": "Chowhatta",
+        "type": "stop",
+        "gmaps_address": "Chowhatta, Sylhet, Bangladesh"
+    },
+    {
+        "id": "JAIL_RD",
+        "name": "Jail Rd",
+        "type": "stop",
+        "gmaps_address": "Jail Road, Sylhet, Bangladesh"
+    },
+    {
+        "id": "NAYASARAK",
+        "name": "Nayasarak",
+        "type": "stop",
+        "gmaps_address": "Nayasarak, Sylhet, Bangladesh"
+    },
+    {
+        "id": "RIKABI_BAZAR",
+        "name": "Rikabi-Bazar Point",
+        "type": "stop",
+        "gmaps_address": "Rikabi Bazar, Sylhet, Bangladesh"
+    },
+    {
+        "id": "LAKKATURA",
+        "name": "Lakkatura",
+        "type": "stop",
+        "gmaps_address": "Lakkatura, Sylhet, Bangladesh"
+    },
+    {
+        "id": "SHEIKHGHAT",
+        "name": "Sheikhghat",
+        "type": "stop",
+        "gmaps_address": "Sheikhghat, Sylhet, Bangladesh"
+    },
+    {
+        "id": "LAMABAZAR",
+        "name": "Lamabazar",
+        "type": "stop",
+        "gmaps_address": "Lamabazar, Sylhet, Bangladesh"
+    },
+    {
+        "id": "MEDICAL",
+        "name": "Medical",
+        "type": "destination",
+        "gmaps_address": "Sylhet MAG Osmani Medical College Hospital, Sylhet, Bangladesh"
+    },
+    {
+        "id": "ZINDABAZAR",
+        "name": "Zindabazar",
+        "type": "destination",
+        "gmaps_address": "Zindabazar, Sylhet, Bangladesh"
+    }
+]

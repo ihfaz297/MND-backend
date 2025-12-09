@@ -1,0 +1,903 @@
+================================================================================
+FRONTEND INSTRUCTIONS FOR REACT + VITE APP
+University Bus Routing API - Cross-Device Network Access
+================================================================================
+
+📋 TABLE OF CONTENTS
+1. Backend Network Configuration
+2. API Endpoints Overview  
+3. Frontend Setup (React + Vite)
+4. Environment Configuration
+5. API Client Implementation
+6. TypeScript Types
+7. React Integration Patterns
+8. Error Handling & Offline Support
+9. Cross-Device Testing
+10. Troubleshooting
+
+================================================================================
+1. BACKEND NETWORK CONFIGURATION
+================================================================================
+
+CRITICAL: Your backend server MUST be configured to listen on ALL network 
+interfaces (0.0.0.0) instead of just localhost (127.0.0.1) to accept 
+connections from other devices on the same WiFi network.
+
+CURRENT SERVER IP (from ipconfig):
+- IPv4 Address: 192.168.31.119
+- Subnet: 255.255.255.0
+- Network Range: 192.168.31.1 - 192.168.31.254
+
+REQUIRED BACKEND CHANGE:
+See "BACKEND_NETWORK_RECOMMENDATIONS.txt" for the exact code changes needed 
+in your server.ts file.
+
+Once updated, your API will be accessible at:
+- From your PC: http://localhost:3000
+- From other devices: http://192.168.31.119:3000
+
+NOTE: Your IPv4 address (192.168.31.119) may change if your router reassigns 
+it. Consider:
+1. Setting a static IP in your router settings
+2. Or using an environment variable for the API URL in production
+3. Or implementing mDNS/Bonjour for device discovery
+
+================================================================================
+2. API ENDPOINTS OVERVIEW
+================================================================================
+
+BASE URL: http://192.168.31.119:3000
+
+2.1. HEALTH CHECK
+-----------------
+GET /api/health
+
+Response:
+{
+  "status": "healthy",
+  "timestamp": "2025-12-09T04:17:20.000Z",
+  "graph": {
+    "nodes": 19,
+    "routes": 7
+  },
+  "distanceMatrix": {
+    "available": true,
+    "usage": {
+      "monthly": "12/700",
+      "daily": "3/25"
+    },
+    "cache": {
+      "hits": 45,
+      "misses": 12,
+      "hitRate": "79%"
+    }
+  }
+}
+
+2.2. GET ALL NODES (Locations)
+-------------------------------
+GET /api/nodes
+
+Response:
+{
+  "count": 19,
+  "nodes": [
+    {
+      "id": "TILAGOR",
+      "name": "Tilagor",
+      "type": "stop"
+    },
+    {
+      "id": "CAMPUS",
+      "name": "SUST Campus",
+      "type": "destination"
+    }
+    // ... more nodes
+  ]
+}
+
+Node Types:
+- "stop": Bus stops
+- "intersection": Transfer points  
+- "destination": Final destinations
+
+2.3. GET ALL BUS ROUTES
+-----------------------
+GET /api/routes/list
+
+Response:
+{
+  "count": 7,
+  "routes": [
+    {
+      "route_id": "bus1",
+      "name": "Tilagor → Campus",
+      "trips_count": 3
+    }
+    // ... more routes
+  ]
+}
+
+2.4. PLAN A ROUTE (Main Endpoint)
+----------------------------------
+GET /api/routes?from={NODE_ID}&to={NODE_ID}&time={HH:MM}[&currentRoute={ROUTE_ID}]
+
+Required Query Parameters:
+- from: Origin node ID (e.g., "TILAGOR")
+- to: Destination node ID (e.g., "CAMPUS")
+- time: Departure time in 24-hour format (e.g., "08:30")
+
+Optional Parameters:
+- currentRoute: Current bus route ID if user is already on a bus
+
+Example Request:
+GET /api/routes?from=TILAGOR&to=CAMPUS&time=08:30
+
+Example Response:
+{
+  "from": "TILAGOR",
+  "to": "CAMPUS",
+  "requestTime": "08:30",
+  "options": [
+    {
+      "label": "Fastest Route",
+      "category": "fastest",
+      "type": "direct",
+      "transfers": 0,
+      "totalTimeMin": 45,
+      "totalCost": 0,
+      "localTimeMin": 0,
+      "localDistanceMeters": 0,
+      "usesDistanceMatrix": false,
+      "legs": [
+        {
+          "mode": "bus",
+          "route_id": "bus1",
+          "trip_id": "bus1_0825",
+          "from": "TILAGOR",
+          "to": "CAMPUS",
+          "departure": "08:25",
+          "arrival": "09:10",
+          "durationMin": 45,
+          "cost": 0,
+          "source": "graph"
+        }
+      ]
+    }
+  ]
+}
+
+Response Types Explained:
+
+categories:
+- "fastest": Prioritizes minimum total time
+- "least_local": Minimizes local transport (CNG/rickshaw) usage
+- "both": Optimal for both criteria
+
+types:
+- "direct": Single bus, no transfers
+- "transfer": Multiple buses with connections
+- "local_only": Walking/CNG only (no buses available)
+
+modes per leg:
+- "bus": University bus (free)
+- "local": CNG/rickshaw/local transport (has cost)
+- "walk": Walking segment (free)
+
+================================================================================
+3. FRONTEND SETUP (React + Vite)
+================================================================================
+
+3.1. CREATE NEW VITE PROJECT
+-----------------------------
+npm create vite@latest bus-routing-app -- --template react-ts
+cd bus-routing-app
+npm install
+
+3.2. INSTALL DEPENDENCIES
+--------------------------
+# Core dependencies
+npm install axios @tanstack/react-query
+
+# UI libraries (optional but recommended)
+npm install react-router-dom
+npm install date-fns  # For time manipulation
+
+# Type-safe routing (optional)
+npm install @tanstack/react-router
+
+3.3. PROJECT STRUCTURE
+----------------------
+src/
+  ├── api/
+  │   ├── client.ts          # Axios instance with base config
+  │   ├── endpoints.ts       # API endpoint functions
+  │   └── types.ts           # TypeScript types matching backend
+  ├── components/
+  │   ├── RouteSearch.tsx    # Search form component
+  │   ├── RouteResults.tsx   # Results display
+  │   ├── RouteLeg.tsx       # Single leg of journey
+  │   └── NodeSelector.tsx   # Dropdown for node selection
+  ├── hooks/
+  │   ├── useRoutes.ts       # React Query hooks for API calls
+  │   └── useNodes.ts
+  ├── utils/
+  │   ├── time.ts            # Time formatting utilities
+  │   └── distance.ts        # Distance/duration formatting
+  ├── App.tsx
+  └── main.tsx
+
+================================================================================
+4. ENVIRONMENT CONFIGURATION
+================================================================================
+
+4.1. CREATE .env FILE (Development)
+------------------------------------
+Create .env in your React project root:
+
+# Development - PC's local network IP
+VITE_API_BASE_URL=http://192.168.31.119:3000
+
+# Alternative: Use localhost when testing on same device
+# VITE_API_BASE_URL=http://localhost:3000
+
+4.2. CREATE .env.production (Production/Build)
+-----------------------------------------------
+VITE_API_BASE_URL=http://192.168.31.119:3000
+
+4.3. PLATFORM-SPECIFIC NOTES
+-----------------------------
+
+Testing on Mobile (Android/iOS):
+1. Ensure mobile device is on SAME WiFi network (192.168.31.x)
+2. Disable firewall on your PC (Windows Defender Firewall)
+3. Use the PC's IP address: http://192.168.31.119:3000
+4. Access Vite dev server from mobile:
+   - Run: npm run dev -- --host
+   - Access at: http://192.168.31.119:5173 (or your Vite port)
+
+Testing on Kotlin App (Future):
+- Use the same base URL: http://192.168.31.119:3000
+- Ensure AndroidManifest.xml has INTERNET permission
+- For localhost testing on emulator use: http://10.0.2.2:3000
+
+================================================================================
+5. API CLIENT IMPLEMENTATION
+================================================================================
+
+5.1. src/api/client.ts
+-----------------------
+import axios from 'axios';
+
+// Get base URL from environment variable with fallback
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000';
+
+// Create axios instance with default configuration
+export const apiClient = axios.create({
+  baseURL: BASE_URL,
+  timeout: 10000, // 10 seconds
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
+// Request interceptor (optional - for logging, auth tokens, etc.)
+apiClient.interceptors.request.use(
+  (config) => {
+    // Log requests in development
+    if (import.meta.env.DEV) {
+      console.log(`[API] ${config.method?.toUpperCase()} ${config.url}`);
+    }
+    return config;
+  },
+  (error) => {
+    console.error('[API] Request error:', error);
+    return Promise.reject(error);
+  }
+);
+
+// Response interceptor (optional - for global error handling)
+apiClient.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    // Handle network errors
+    if (!error.response) {
+      console.error('[API] Network error - server may be unreachable');
+      // You can show a toast notification here
+    }
+    
+    // Handle specific status codes
+    if (error.response?.status === 404) {
+      console.error('[API] Endpoint not found:', error.config?.url);
+    }
+    
+    return Promise.reject(error);
+  }
+);
+
+5.2. src/api/endpoints.ts
+--------------------------
+import { apiClient } from './client';
+import type {
+  HealthResponse,
+  NodesResponse,
+  RoutesListResponse,
+  RouteResponse,
+  PlanRouteParams,
+} from './types';
+
+export const busApi = {
+  /**
+   * Health check - use this to verify backend connectivity
+   */
+  healthCheck: async (): Promise<HealthResponse> => {
+    const { data } = await apiClient.get<HealthResponse>('/api/health');
+    return data;
+  },
+
+  /**
+   * Get all available nodes (stops, intersections, destinations)
+   */
+  getNodes: async (): Promise<NodesResponse> => {
+    const { data } = await apiClient.get<NodesResponse>('/api/nodes');
+    return data;
+  },
+
+  /**
+   * Get all bus routes
+   */
+  getRoutesList: async (): Promise<RoutesListResponse> => {
+    const { data } = await apiClient.get<RoutesListResponse>('/api/routes/list');
+    return data;
+  },
+
+  /**
+   * Plan a route between two nodes
+   */
+  planRoute: async (params: PlanRouteParams): Promise<RouteResponse> => {
+    const { data } = await apiClient.get<RouteResponse>('/api/routes', {
+      params: {
+        from: params.from,
+        to: params.to,
+        time: params.time,
+        ...(params.currentRoute && { currentRoute: params.currentRoute }),
+      },
+    });
+    return data;
+  },
+};
+
+================================================================================
+6. TYPESCRIPT TYPES
+================================================================================
+
+6.1. src/api/types.ts
+---------------------
+// Copy these types from your backend to maintain type safety
+
+// ============================================================================
+// API Request Types
+// ============================================================================
+
+export interface PlanRouteParams {
+  from: string;
+  to: string;
+  time: string; // HH:MM format
+  currentRoute?: string;
+}
+
+// ============================================================================
+// API Response Types
+// ============================================================================
+
+export interface HealthResponse {
+  status: string;
+  timestamp: string;
+  graph: {
+    nodes: number;
+    routes: number;
+  };
+  distanceMatrix: {
+    available: boolean;
+    usage: {
+      monthly: string;
+      daily: string;
+    };
+    cache: {
+      hits: number;
+      misses: number;
+      hitRate: string;
+    };
+  };
+}
+
+export interface Node {
+  id: string;
+  name: string;
+  type: 'stop' | 'intersection' | 'destination';
+}
+
+export interface NodesResponse {
+  count: number;
+  nodes: Node[];
+}
+
+export interface BusRoute {
+  route_id: string;
+  name: string;
+  trips_count: number;
+}
+
+export interface RoutesListResponse {
+  count: number;
+  routes: BusRoute[];
+}
+
+export interface RouteLeg {
+  mode: 'bus' | 'local' | 'walk';
+  submode?: 'driving' | 'walking';
+  route_id?: string;
+  trip_id?: string;
+  from: string;
+  to: string;
+  departure?: string;
+  arrival?: string;
+  durationMin?: number;
+  distanceMeters?: number;
+  cost?: number;
+  source?: 'graph' | 'distance_matrix';
+}
+
+export interface RouteOption {
+  label: string;
+  category: 'fastest' | 'least_local' | 'both';
+  type: 'direct' | 'transfer' | 'local_only';
+  transfers: number;
+  totalTimeMin: number;
+  totalCost: number;
+  localTimeMin: number;
+  localDistanceMeters: number;
+  usesDistanceMatrix: boolean;
+  legs: RouteLeg[];
+}
+
+export interface RouteResponse {
+  from: string;
+  to: string;
+  requestTime: string;
+  options: RouteOption[];
+}
+
+// ============================================================================
+// Error Response Type
+// ============================================================================
+
+export interface ApiError {
+  error: string;
+  message?: string;
+  path?: string;
+}
+
+================================================================================
+7. REACT INTEGRATION PATTERNS
+================================================================================
+
+7.1. src/hooks/useRoutes.ts (with React Query)
+-----------------------------------------------
+import { useQuery, useMutation } from '@tanstack/react-query';
+import { busApi } from '../api/endpoints';
+import type { PlanRouteParams } from '../api/types';
+
+// Hook for health check
+export function useHealthCheck() {
+  return useQuery({
+    queryKey: ['health'],
+    queryFn: busApi.healthCheck,
+    refetchInterval: 30000, // Refetch every 30 seconds to monitor connection
+  });
+}
+
+// Hook for getting all nodes
+export function useNodes() {
+  return useQuery({
+    queryKey: ['nodes'],
+    queryFn: busApi.getNodes,
+    staleTime: 1000 * 60 * 5, // Nodes rarely change, cache for 5 minutes
+  });
+}
+
+// Hook for getting bus routes
+export function useBusRoutes() {
+  return useQuery({
+    queryKey: ['routes'],
+    queryFn: busApi.getRoutesList,
+    staleTime: 1000 * 60 * 5, // Routes rarely change, cache for 5 minutes
+  });
+}
+
+// Hook for planning a route
+export function usePlanRoute() {
+  return useMutation({
+    mutationFn: (params: PlanRouteParams) => busApi.planRoute(params),
+  });
+}
+
+7.2. src/components/RouteSearch.tsx (Example Component)
+--------------------------------------------------------
+import { useState } from 'react';
+import { useNodes, usePlanRoute } from '../hooks/useRoutes';
+
+export function RouteSearch() {
+  const [from, setFrom] = useState('');
+  const [to, setTo] = useState('');
+  const [time, setTime] = useState('08:00');
+
+  const { data: nodesData, isLoading: nodesLoading } = useNodes();
+  const planRoute = usePlanRoute();
+
+  const handleSearch = async () => {
+    if (!from || !to || !time) {
+      alert('Please fill all fields');
+      return;
+    }
+
+    try {
+      await planRoute.mutateAsync({ from, to, time });
+    } catch (error) {
+      console.error('Failed to plan route:', error);
+    }
+  };
+
+  if (nodesLoading) return <div>Loading stops...</div>;
+
+  return (
+    <div className="route-search">
+      <h2>Plan Your Journey</h2>
+      
+      <div className="form-group">
+        <label>From:</label>
+        <select value={from} onChange={(e) => setFrom(e.target.value)}>
+          <option value="">Select origin</option>
+          {nodesData?.nodes.map((node) => (
+            <option key={node.id} value={node.id}>
+              {node.name} ({node.type})
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div className="form-group">
+        <label>To:</label>
+        <select value={to} onChange={(e) => setTo(e.target.value)}>
+          <option value="">Select destination</option>
+          {nodesData?.nodes.map((node) => (
+            <option key={node.id} value={node.id}>
+              {node.name} ({node.type})
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div className="form-group">
+        <label>Departure Time:</label>
+        <input
+          type="time"
+          value={time}
+          onChange={(e) => setTime(e.target.value)}
+        />
+      </div>
+
+      <button 
+        onClick={handleSearch} 
+        disabled={planRoute.isPending}
+      >
+        {planRoute.isPending ? 'Searching...' : 'Find Routes'}
+      </button>
+
+      {planRoute.isError && (
+        <div className="error">
+          Failed to find routes. Please check your connection.
+        </div>
+      )}
+
+      {planRoute.data && (
+        <div className="results">
+          <h3>Found {planRoute.data.options.length} options</h3>
+          {planRoute.data.options.map((option, idx) => (
+            <div key={idx} className="route-option">
+              <h4>{option.label}</h4>
+              <p>Time: {option.totalTimeMin} min | Cost: ৳{option.totalCost}</p>
+              <p>Transfers: {option.transfers}</p>
+              {/* Render legs here */}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+7.3. src/main.tsx (Setup React Query)
+--------------------------------------
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import App from './App';
+import './index.css';
+
+// Create a client
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 2, // Retry failed requests twice
+      refetchOnWindowFocus: false,
+    },
+  },
+});
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <QueryClientProvider client={queryClient}>
+      <App />
+    </QueryClientProvider>
+  </React.StrictMode>
+);
+
+================================================================================
+8. ERROR HANDLING & OFFLINE SUPPORT
+================================================================================
+
+8.1. Connection Status Component
+---------------------------------
+import { useHealthCheck } from '../hooks/useRoutes';
+
+export function ConnectionStatus() {
+  const { isLoading, isError } = useHealthCheck();
+
+  if (isLoading) return null;
+
+  if (isError) {
+    return (
+      <div className="connection-error">
+        ⚠️ Cannot connect to server. Please check:
+        <ul>
+          <li>Backend server is running</li>
+          <li>You're on the same WiFi network</li>
+          <li>Firewall is disabled on server PC</li>
+        </ul>
+      </div>
+    );
+  }
+
+  return (
+    <div className="connection-success">
+      ✅ Connected to server
+    </div>
+  );
+}
+
+8.2. Retry Logic with Exponential Backoff
+------------------------------------------
+import { QueryClient } from '@tanstack/react-query';
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: (failureCount, error: any) => {
+        // Don't retry on 404s
+        if (error?.response?.status === 404) return false;
+        
+        // Retry network errors up to 3 times
+        return failureCount < 3;
+      },
+      retryDelay: (attemptIndex) => {
+        // Exponential backoff: 1s, 2s, 4s
+        return Math.min(1000 * 2 ** attemptIndex, 30000);
+      },
+    },
+  },
+});
+
+================================================================================
+9. CROSS-DEVICE TESTING
+================================================================================
+
+9.1. RUN VITE DEV SERVER FOR NETWORK ACCESS
+--------------------------------------------
+# Default (localhost only - won't work for other devices)
+npm run dev
+
+# CORRECT: Expose to network (required for mobile/other devices)
+npm run dev -- --host
+
+This will show:
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: http://192.168.31.119:5173/
+
+Use the Network URL on your phone/tablet.
+
+9.2. UPDATE vite.config.ts (Optional but recommended)
+------------------------------------------------------
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+
+export default defineConfig({
+  plugins: [react()],
+  server: {
+    host: '0.0.0.0', // Listen on all network interfaces
+    port: 5173,
+    strictPort: false, // Use different port if 5173 is busy
+  },
+});
+
+9.3. TESTING CHECKLIST FOR MOBILE DEVICES
+------------------------------------------
+1. ✅ Backend server running on PC (npm run dev in backend folder)
+2. ✅ Frontend dev server running with --host flag
+3. ✅ Both devices on SAME WiFi network (check WiFi name)
+4. ✅ PC firewall disabled or port 3000 allowed
+5. ✅ Browser on mobile opened to http://192.168.31.119:5173
+6. ✅ Test connectivity with health check endpoint first
+
+Test URL on mobile browser:
+http://192.168.31.119:5173
+
+Backend health check from mobile:
+http://192.168.31.119:3000/api/health
+
+9.4. DEBUGGING CONNECTION ISSUES
+---------------------------------
+From your mobile browser, open:
+http://192.168.31.119:3000/api/health
+
+Expected: JSON response with "status": "healthy"
+
+If it fails:
+- Ping from mobile (use network tools app): ping 192.168.31.119
+- Check if PC is on WiFi (not Ethernet, unless both are on same subnet)
+- Verify firewall: Windows Settings → Firewall → Allow an app
+- Check backend logs for incoming requests
+
+================================================================================
+10. TROUBLESHOOTING
+================================================================================
+
+10.1. CORS Errors
+-----------------
+If you see "CORS policy" errors in browser console:
+
+Your backend already has CORS enabled (app.use(cors())), but if you still
+see errors, you can make it more explicit:
+
+In server.ts, replace:
+  app.use(cors());
+
+With:
+  app.use(cors({
+    origin: '*', // Allow all origins (dev only - restrict in production)
+    methods: ['GET', 'POST', 'OPTIONS'],
+    credentials: true
+  }));
+
+10.2. Network Unreachable from Mobile
+--------------------------------------
+Symptom: "Network Error" or timeout when calling API from phone
+
+Solution checklist:
+1. Verify PC IP hasn't changed (run ipconfig again)
+2. Disable Windows Firewall completely for testing:
+   - Settings → Windows Security → Firewall & network protection
+   - Turn off for Private network
+3. Ensure backend logs show: "Server running on http://localhost:3000"
+   (After fix it should also show network IP)
+4. Test from another device (laptop) on same network first
+5. Check router settings - some routers have AP Isolation enabled
+   (prevents device-to-device communication)
+
+10.3. Vite Dev Server Not Accessible from Network
+--------------------------------------------------
+Symptom: Frontend works on PC but not on mobile
+
+Solution:
+- MUST use --host flag: npm run dev -- --host
+- Or configure in vite.config.ts (see section 9.2)
+- Check Vite's console output for "Network: http://..." URL
+
+10.4. API Key Not Working (Distance Matrix)
+--------------------------------------------
+Symptom: Health check shows "available": false
+
+Solution:
+- Check .env file has: GOOGLE_DM_API_KEY=your_actual_key
+- Restart backend server after changing .env
+- Verify key is valid in Google Cloud Console
+
+10.5. Routes Not Found (404)
+-----------------------------
+Symptom: GET /api/routes returns 404
+
+Common causes:
+- Typo in endpoint URL (should be /api/routes not /api/route)
+- Base URL incorrect (missing /api prefix)
+- Backend server not fully started (check console for "✓ Server running")
+
+10.6. Time Format Errors
+-------------------------
+Symptom: "Invalid time format" error
+
+Solution:
+- Ensure time is in HH:MM format (24-hour)
+- Use leading zeros: "08:30" not "8:30"
+- Valid range: "00:00" to "23:59"
+
+Example validation:
+const timeRegex = /^([01]\d|2[0-3]):([0-5]\d)$/;
+if (!timeRegex.test(time)) {
+  alert('Please enter time in HH:MM format (e.g., 08:30)');
+}
+
+================================================================================
+SUMMARY - QUICK START CHECKLIST
+================================================================================
+
+BACKEND (run on your PC):
+[ ] 1. Update server.ts to listen on 0.0.0.0 (see BACKEND_NETWORK_RECOMMENDATIONS.txt)
+[ ] 2. Verify .env has GOOGLE_DM_API_KEY set
+[ ] 3. Run: npm run dev
+[ ] 4. Verify server shows: "Server running on http://localhost:3000"
+[ ] 5. Disable Windows Firewall for testing
+
+FRONTEND (React + Vite):
+[ ] 1. Create project: npm create vite@latest -- --template react-ts
+[ ] 2. Install: npm install axios @tanstack/react-query
+[ ] 3. Create .env with: VITE_API_BASE_URL=http://192.168.31.119:3000
+[ ] 4. Copy api/client.ts and api/endpoints.ts from this guide
+[ ] 5. Copy api/types.ts from this guide
+[ ] 6. Run: npm run dev -- --host
+[ ] 7. Access from mobile at: http://192.168.31.119:5173
+
+TESTING:
+[ ] 1. Open http://192.168.31.119:3000/api/health on PC - should see JSON
+[ ] 2. Open http://192.168.31.119:3000/api/health on phone - should see same JSON
+[ ] 3. Open http://192.168.31.119:5173 on phone - should see your React app
+[ ] 4. Search for a route in the app - should show results
+
+If anything fails, see section 10 (TROUBLESHOOTING).
+
+================================================================================
+FUTURE: KOTLIN APP INTEGRATION
+================================================================================
+
+When you're ready to connect a Kotlin Android app:
+
+1. Use the same base URL: http://192.168.31.119:3000
+2. For Android emulator testing, use: http://10.0.2.2:3000
+3. Add INTERNET permission to AndroidManifest.xml:
+   <uses-permission android:name="android.permission.INTERNET" />
+
+4. Use Retrofit or Ktor for HTTP client:
+
+// Retrofit example
+interface BusRoutingApi {
+    @GET("api/health")
+    suspend fun healthCheck(): HealthResponse
+    
+    @GET("api/nodes")
+    suspend fun getNodes(): NodesResponse
+    
+    @GET("api/routes")
+    suspend fun planRoute(
+        @Query("from") from: String,
+        @Query("to") to: String,
+        @Query("time") time: String,
+        @Query("currentRoute") currentRoute: String? = null
+    ): RouteResponse
+}
+
+The API is already cross-platform compatible since it just returns JSON!
+
+================================================================================
+END OF FRONTEND INSTRUCTIONS
+================================================================================

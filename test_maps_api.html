@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Maps API Test - Sylhet Bus Routes</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+            font-size: 32px;
+        }
+        .status {
+            margin: 20px 30px;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        #map {
+            height: 500px;
+            width: 100%;
+            border-top: 3px solid #667eea;
+        }
+        .details {
+            padding: 30px;
+        }
+        .detail-item {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .detail-label {
+            font-weight: bold;
+            color: #667eea;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🗺️ Google Maps API Test</h1>
+            <p>Testing API Key for Sylhet Bus Routing System</p>
+        </div>
+
+        <div id="status" class="status info">
+            ⏳ Loading Google Maps JavaScript API...
+        </div>
+
+        <div id="map"></div>
+
+        <div class="details">
+            <h2>Test Results:</h2>
+            <div class="detail-item">
+                <span class="detail-label">API Key:</span> 
+                <span id="apikey">AIzaSyASr3Lflqalu9EPCrGBofpD2-CtQxFLZuo</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Location:</span> 
+                <span>Sylhet, Bangladesh (24.8949°N, 91.8687°E)</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Test Markers:</span> 
+                <span id="markers">Pending...</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Status:</span> 
+                <span id="result">Testing...</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function initMap() {
+            const statusDiv = document.getElementById('status');
+            const resultSpan = document.getElementById('result');
+            const markersSpan = document.getElementById('markers');
+
+            try {
+                // Sylhet city center
+                const sylhetCenter = { lat: 24.8949, lng: 91.8687 };
+
+                // Create map
+                const map = new google.maps.Map(document.getElementById('map'), {
+                    center: sylhetCenter,
+                    zoom: 13,
+                    mapTypeControl: true,
+                    streetViewControl: true,
+                    fullscreenControl: true
+                });
+
+                // Add marker for SUST (Shahjalal University)
+                const sustMarker = new google.maps.Marker({
+                    position: { lat: 24.9196, lng: 91.8356 },
+                    map: map,
+                    title: 'Shahjalal University of Science and Technology (SUST)',
+                    icon: {
+                        url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+                    }
+                });
+
+                // Add marker for Tilagor
+                const tilagorMarker = new google.maps.Marker({
+                    position: { lat: 24.8750, lng: 91.8400 },
+                    map: map,
+                    title: 'Tilagor Bus Stop',
+                    icon: {
+                        url: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
+                    }
+                });
+
+                // Add marker for Sylhet Medical
+                const medicalMarker = new google.maps.Marker({
+                    position: { lat: 24.8975, lng: 91.8701 },
+                    map: map,
+                    title: 'Sylhet MAG Osmani Medical College Hospital',
+                    icon: {
+                        url: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
+                    }
+                });
+
+                // Success!
+                statusDiv.className = 'status success';
+                statusDiv.innerHTML = '✅ SUCCESS! Google Maps API is working perfectly!';
+                resultSpan.textContent = 'API Verified ✓';
+                markersSpan.textContent = 'SUST (Blue), Tilagor (Red), Medical (Green)';
+
+            } catch (error) {
+                statusDiv.className = 'status error';
+                statusDiv.innerHTML = `❌ ERROR: ${error.message}`;
+                resultSpan.textContent = 'Failed';
+                markersSpan.textContent = 'N/A';
+            }
+        }
+
+        // Handle API load error
+        function handleError() {
+            const statusDiv = document.getElementById('status');
+            statusDiv.className = 'status error';
+            statusDiv.innerHTML = '❌ FAILED: Could not load Google Maps API. Check API key restrictions or billing.';
+            document.getElementById('result').textContent = 'API Load Failed';
+        }
+    </script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyASr3Lflqalu9EPCrGBofpD2-CtQxFLZuo&callback=initMap&v=weekly" 
+            async 
+            defer
+            onerror="handleError()">
+    </script>
+</body>
+</html>

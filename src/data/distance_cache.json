@@ -1,0 +1,187 @@
+{
+  "TILAGOR|SHIBGONJ|driving": {
+    "distanceMeters": 2046,
+    "durationSeconds": 356,
+    "timestamp": "2025-12-08T08:36:52.667Z"
+  },
+  "SHIBGONJ|NAIORPUL|driving": {
+    "distanceMeters": 2457,
+    "durationSeconds": 565,
+    "timestamp": "2025-12-08T08:36:53.185Z"
+  },
+  "NAIORPUL|KUMARPARA|driving": {
+    "distanceMeters": 1074,
+    "durationSeconds": 234,
+    "timestamp": "2025-12-08T08:36:53.684Z"
+  },
+  "KUMARPARA|SHAHI_EIDGAH|driving": {
+    "distanceMeters": 1271,
+    "durationSeconds": 260,
+    "timestamp": "2025-12-08T08:36:54.205Z"
+  },
+  "SHAHI_EIDGAH|AMBARKHANA|driving": {
+    "distanceMeters": 1446,
+    "durationSeconds": 292,
+    "timestamp": "2025-12-08T08:36:54.669Z"
+  },
+  "AMBARKHANA|SUBIDBAZAR|driving": {
+    "distanceMeters": 2087,
+    "durationSeconds": 515,
+    "timestamp": "2025-12-08T08:36:55.167Z"
+  },
+  "SUBIDBAZAR|PATHANTULA|driving": {
+    "distanceMeters": 2265,
+    "durationSeconds": 502,
+    "timestamp": "2025-12-08T08:36:55.655Z"
+  },
+  "PATHANTULA|MODINA_MARKET|driving": {
+    "distanceMeters": 1139,
+    "durationSeconds": 319,
+    "timestamp": "2025-12-08T08:36:56.167Z"
+  },
+  "MODINA_MARKET|CAMPUS|driving": {
+    "distanceMeters": 3598,
+    "durationSeconds": 800,
+    "timestamp": "2025-12-08T08:36:56.701Z"
+  },
+  "KUMARPARA|CHOWHATTA|driving": {
+    "distanceMeters": 1311,
+    "durationSeconds": 318,
+    "timestamp": "2025-12-08T08:36:57.203Z"
+  },
+  "CHOWHATTA|AMBARKHANA|driving": {
+    "distanceMeters": 1137,
+    "durationSeconds": 363,
+    "timestamp": "2025-12-08T08:36:57.608Z"
+  },
+  "CAMPUS|SUBIDBAZAR|driving": {
+    "distanceMeters": 5222,
+    "durationSeconds": 1075,
+    "timestamp": "2025-12-08T08:36:58.015Z"
+  },
+  "SUBIDBAZAR|AMBARKHANA|driving": {
+    "distanceMeters": 2091,
+    "durationSeconds": 531,
+    "timestamp": "2025-12-08T08:36:58.404Z"
+  },
+  "AMBARKHANA|SHAHI_EIDGAH|driving": {
+    "distanceMeters": 1446,
+    "durationSeconds": 310,
+    "timestamp": "2025-12-08T08:36:58.800Z"
+  },
+  "SHAHI_EIDGAH|KUMARPARA|driving": {
+    "distanceMeters": 1229,
+    "durationSeconds": 245,
+    "timestamp": "2025-12-08T08:36:59.202Z"
+  },
+  "KUMARPARA|NAIORPUL|driving": {
+    "distanceMeters": 1074,
+    "durationSeconds": 219,
+    "timestamp": "2025-12-08T08:36:59.617Z"
+  },
+  "NAIORPUL|SHIBGONJ|driving": {
+    "distanceMeters": 2307,
+    "durationSeconds": 566,
+    "timestamp": "2025-12-08T08:37:00.021Z"
+  },
+  "SHIBGONJ|TILAGOR|driving": {
+    "distanceMeters": 2046,
+    "durationSeconds": 335,
+    "timestamp": "2025-12-08T08:37:00.417Z"
+  },
+  "TILAGOR|SHAHI_EIDGAH|driving": {
+    "distanceMeters": 2818,
+    "durationSeconds": 516,
+    "timestamp": "2025-12-08T08:37:00.825Z"
+  },
+  "CAMPUS|AMBARKHANA|driving": {
+    "distanceMeters": 5643,
+    "durationSeconds": 1251,
+    "timestamp": "2025-12-08T08:37:01.227Z"
+  },
+  "NAIORPUL|JAIL_RD|driving": {
+    "distanceMeters": 975,
+    "durationSeconds": 242,
+    "timestamp": "2025-12-08T08:37:01.735Z"
+  },
+  "JAIL_RD|NAYASARAK|driving": {
+    "distanceMeters": 485,
+    "durationSeconds": 119,
+    "timestamp": "2025-12-08T08:37:02.248Z"
+  },
+  "NAYASARAK|CHOWHATTA|driving": {
+    "distanceMeters": 902,
+    "durationSeconds": 236,
+    "timestamp": "2025-12-08T08:37:02.642Z"
+  },
+  "CHOWHATTA|RIKABI_BAZAR|driving": {
+    "distanceMeters": 933,
+    "durationSeconds": 216,
+    "timestamp": "2025-12-08T08:37:03.151Z"
+  },
+  "RIKABI_BAZAR|SUBIDBAZAR|driving": {
+    "distanceMeters": 1499,
+    "durationSeconds": 351,
+    "timestamp": "2025-12-08T08:37:03.543Z"
+  },
+  "CAMPUS|MODINA_MARKET|driving": {
+    "distanceMeters": 3058,
+    "durationSeconds": 889,
+    "timestamp": "2025-12-08T08:37:03.955Z"
+  },
+  "MODINA_MARKET|PATHANTULA|driving": {
+    "distanceMeters": 1136,
+    "durationSeconds": 338,
+    "timestamp": "2025-12-08T08:37:04.354Z"
+  },
+  "PATHANTULA|SUBIDBAZAR|driving": {
+    "distanceMeters": 2315,
+    "durationSeconds": 514,
+    "timestamp": "2025-12-08T08:37:04.760Z"
+  },
+  "SUBIDBAZAR|RIKABI_BAZAR|driving": {
+    "distanceMeters": 1471,
+    "durationSeconds": 288,
+    "timestamp": "2025-12-08T08:37:05.161Z"
+  },
+  "RIKABI_BAZAR|CHOWHATTA|driving": {
+    "distanceMeters": 1005,
+    "durationSeconds": 250,
+    "timestamp": "2025-12-08T08:37:05.565Z"
+  },
+  "CHOWHATTA|KUMARPARA|driving": {
+    "distanceMeters": 1311,
+    "durationSeconds": 318,
+    "timestamp": "2025-12-08T08:37:05.955Z"
+  },
+  "JAIL_RD|CHOWHATTA|driving": {
+    "distanceMeters": 1237,
+    "durationSeconds": 316,
+    "timestamp": "2025-12-08T08:37:06.346Z"
+  },
+  "LAKKATURA|AMBARKHANA|driving": {
+    "distanceMeters": 2520,
+    "durationSeconds": 528,
+    "timestamp": "2025-12-08T08:37:06.829Z"
+  },
+  "AMBARKHANA|LAKKATURA|driving": {
+    "distanceMeters": 2520,
+    "durationSeconds": 487,
+    "timestamp": "2025-12-08T08:37:07.238Z"
+  },
+  "AMBARKHANA|CHOWHATTA|driving": {
+    "distanceMeters": 1094,
+    "durationSeconds": 321,
+    "timestamp": "2025-12-08T08:37:07.636Z"
+  },
+  "RIKABI_BAZAR|MODINA_MARKET|driving": {
+    "distanceMeters": 3359,
+    "durationSeconds": 799,
+    "timestamp": "2025-12-08T08:37:08.026Z"
+  },
+  "SHEIKHGHAT|RIKABI_BAZAR|driving": {
+    "distanceMeters": 1530,
+    "durationSeconds": 352,
+    "timestamp": "2025-12-08T08:37:08.474Z"
+  }
+}
